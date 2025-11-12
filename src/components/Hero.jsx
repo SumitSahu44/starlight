@@ -16,52 +16,54 @@ const Hero = () => {
     const ctx = gsap.context(() => {
       // Initial entrance animations
       gsap.fromTo('.hero-text', 
-        { y: 100, opacity: 0 },
+        { y: 50, opacity: 0 },
         { 
           y: 0, 
           opacity: 1, 
-          duration: 1.5, 
+          duration: 1.2, 
           ease: "power3.out",
-          stagger: 0.2
+          stagger: 0.15
         }
       );
 
       // Solar panel floating animation
       gsap.to(solarPanelRef.current, {
-        y: -20,
-        duration: 3,
+        y: -15,
+        duration: 4,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
       });
 
-      // Scroll-triggered text split animation
-      gsap.to(textLeftRef.current, {
-        x: -100,
-        opacity: 0.8,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        }
-      });
+      // Scroll-triggered text split animation - only on desktop
+      if (window.innerWidth > 1024) {
+        gsap.to(textLeftRef.current, {
+          x: -80,
+          opacity: 0.8,
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          }
+        });
 
-      gsap.to(textRightRef.current, {
-        x: 100,
-        opacity: 0.8,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        }
-      });
+        gsap.to(textRightRef.current, {
+          x: 80,
+          opacity: 0.8,
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          }
+        });
+      }
 
       // CTA button pulse animation
       gsap.to(ctaRef.current, {
-        scale: 1.05,
-        duration: 1,
+        scale: 1.03,
+        duration: 2,
         repeat: -1,
         yoyo: true,
         ease: "power1.inOut"
@@ -71,12 +73,12 @@ const Hero = () => {
       gsap.fromTo('.floating-element',
         { y: 0 },
         {
-          y: -30,
-          duration: 4,
+          y: -20,
+          duration: 3,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          stagger: 0.5
+          stagger: 0.3
         }
       );
     }, heroRef);
@@ -87,26 +89,26 @@ const Hero = () => {
   return (
     <section 
       ref={heroRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0B1020]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B1020] py-20 lg:py-0"
     >
       {/* Background with solar panel house image */}
       <div className="absolute inset-0 z-0">
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-100"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://media.istockphoto.com/id/1516933381/photo/3d-render-of-modern-forest-house-with-solar-panels-on-roof-at-night.jpg?s=612x612&w=0&k=20&c=irPqGAsgKWoVeDGCVwL-hp0C3IFYbyQ11pwDiWOGCQk=")'
+            backgroundImage: 'url("https://images.newscientist.com/wp-content/uploads/2022/04/05155212/SEI_97228967.jpg")'
           }}
         />
         
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-[#0B1020]/10 z-10" />
+        <div className="absolute inset-0 bg-[#0B1020]/40 z-10" />
         
         {/* Animated solar panel graphic */}
         <div 
           ref={solarPanelRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 z-20 opacity-30"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 lg:w-64 lg:h-64 z-20 opacity-20 lg:opacity-30"
         >
-          <div className="grid grid-cols-4 gap-2 w-full h-full">
+          <div className="grid grid-cols-4 gap-1 lg:gap-2 w-full h-full">
             {Array.from({ length: 16 }).map((_, i) => (
               <div 
                 key={i}
@@ -119,17 +121,17 @@ const Hero = () => {
 
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          {Array.from({ length: 15 }).map((_, i) => (
+          {Array.from({ length: 12 }).map((_, i) => (
             <div
               key={i}
               className="absolute floating-element"
               style={{
-                width: `${Math.random() * 100 + 50}px`,
-                height: '2px',
+                width: `${Math.random() * 80 + 30}px`,
+                height: '1px',
                 background: `linear-gradient(90deg, transparent, #4A6ED1, transparent)`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                opacity: Math.random() * 0.3 + 0.1,
+                opacity: Math.random() * 0.2 + 0.1,
                 animationDelay: `${i * 0.2}s`
               }}
             />
@@ -138,48 +140,49 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-30 text-white max-w-6xl mx-auto px-4 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-30 text-white w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          
           {/* Left Text Column */}
-          <div ref={textLeftRef} className="space-y-8">
+          <div ref={textLeftRef} className="space-y-6 lg:space-y-8  lg:text-left">
             {/* Main Heading */}
-            <div className="space-y-4">
-              <h1 className="hero-text text-6xl md:text-7xl lg:text-8xl font-bold leading-none">
+            <div className="space-y-3 lg:space-y-4">
+              <h1 className="hero-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
                 GET
-                <span className="block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent mt-2">
                   SOLAR
                 </span>
               </h1>
               
-              <div className="hero-text text-2xl md:text-3xl font-light text-[#B59A90]">
+              <div className="hero-text text-xl sm:text-2xl md:text-3xl font-light text-[#B59A90]">
                 <span className="font-bold text-white">POWERED</span>
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="hero-text grid grid-cols-3 gap-6 pt-6">
+            {/* Stats - Hidden on mobile, shown on tablet and up */}
+            <div className="hero-text hidden sm:grid grid-cols-3 gap-4 lg:gap-6 pt-4">
               {[
                 { number: "25+", label: "Years Exp" },
                 { number: "5K+", label: "Projects" },
                 { number: "98%", label: "Satisfaction" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-2xl font-bold text-[#FFf]">{stat.number}</div>
-                  <div className="text-sm text-[#B59A90]">{stat.label}</div>
+                  <div className="text-xl lg:text-2xl font-bold text-white">{stat.number}</div>
+                  <div className="text-xs lg:text-sm text-[#B59A90]">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right Text Column */}
-          <div ref={textRightRef} className="space-y-8">
+          <div ref={textRightRef} className="space-y-6 lg:space-y-8">
             {/* Description */}
-            <div className="hero-text space-y-6">
-              <p className="text-xl md:text-2xl leading-relaxed text-[#B59A90]">
+            <div className="hero-text space-y-4 lg:space-y-6">
+              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 lg:text-left">
                 Residential & Commercial Solar Solutions from Zeno Renewables deliver daily reliable energy to homes and businesses across
               </p>
               
-              <div className="text-lg md:text-xl font-semibold">
+              <div className="text-base sm:text-lg lg:text-xl font-semibold lg:text-left">
                 <span className="text-[#4A6ED1]">Calgary</span>, 
                 <span className="text-[#FF7A2A]"> Edmonton</span>, 
                 <span className="text-[#B59A90]"> Lethbridge</span>, and the 
@@ -187,16 +190,30 @@ const Hero = () => {
               </div>
             </div>
 
+            {/* Stats - Mobile only */}
+            <div className="hero-text grid grid-cols-3 gap-4 sm:hidden pt-4">
+              {[
+                { number: "25+", label: "Years Exp" },
+                { number: "5K+", label: "Projects" },
+                { number: "98%", label: "Satisfaction" }
+              ].map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-lg font-bold text-white">{stat.number}</div>
+                  <div className="text-xs text-[#B59A90]">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
             {/* CTA Button */}
-            <div className="hero-text pt-4">
+            <div className="hero-text pt-4 lg:pt-6 text-center lg:text-left">
               <button
                 ref={ctaRef}
-                className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-12 py-4 rounded-full font-bold text-lg overflow-hidden"
+                className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white w-full sm:w-auto px-8 py-4 lg:px-12 lg:py-4 rounded-full font-bold text-base lg:text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
               >
-                <span className="relative z-10 flex items-center gap-3">
+                <span className="relative z-10 flex items-center justify-center lg:justify-start gap-2 lg:gap-3">
                   EXPLORE OUR SERVICES
                   <svg 
-                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                    className="w-4 h-4 lg:w-5 lg:h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -214,19 +231,19 @@ const Hero = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+      <div className="absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 z-30">
         <div className="flex flex-col items-center space-y-2">
-          <span className="text-sm text-[#B59A90] uppercase tracking-wider">Scroll to Discover</span>
-          <div className="w-6 h-10 border-2 border-[#4A6ED1] rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-[#4A6ED1] rounded-full mt-2 animate-bounce" />
+          <span className="text-xs lg:text-sm text-[#B59A90] uppercase tracking-wider">Scroll to Discover</span>
+          <div className="w-5 h-8 lg:w-6 lg:h-10 border-2 border-[#4A6ED1] rounded-full flex justify-center">
+            <div className="w-1 h-2 lg:h-3 bg-[#4A6ED1] rounded-full mt-2 animate-bounce" />
           </div>
         </div>
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-10 right-10 w-4 h-4 bg-[#FF7A2A] rounded-full opacity-60 floating-element" />
-      <div className="absolute bottom-20 left-10 w-6 h-6 bg-[#4A6ED1] rounded-full opacity-40 floating-element" />
-      <div className="absolute top-1/4 right-1/4 w-3 h-3 bg-[#B59A90] rounded-full opacity-50 floating-element" />
+      <div className="absolute top-6 right-6 lg:top-10 lg:right-10 w-3 h-3 lg:w-4 lg:h-4 bg-[#FF7A2A] rounded-full opacity-60 floating-element" />
+      <div className="absolute bottom-16 left-6 lg:bottom-20 lg:left-10 w-4 h-4 lg:w-6 lg:h-6 bg-[#4A6ED1] rounded-full opacity-40 floating-element" />
+      <div className="absolute top-1/4 right-1/4 w-2 h-2 lg:w-3 lg:h-3 bg-[#B59A90] rounded-full opacity-50 floating-element" />
     </section>
   );
 };
