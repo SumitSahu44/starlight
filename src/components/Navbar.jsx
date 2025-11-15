@@ -66,7 +66,7 @@ const Navbar = () => {
         scrolled ? "bg-[#0B1020]/90 backdrop-blur-lg shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
@@ -130,6 +130,14 @@ const Navbar = () => {
                 </motion.button>
               )
             )}
+            <motion.button
+  onClick={() => handleNavigation("#contact")}
+  whileHover={{ scale: 1.05, y: -2 }}
+  className="hidden md:block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-2 rounded-full font-semibold shadow-lg transition-all"
+>
+  Get a Quote
+</motion.button>
+
           </div>
 
           {/* Mobile Menu Button */}
@@ -210,6 +218,18 @@ const Navbar = () => {
                   </button>
                 )
               )}
+              <div className="px-4 pb-6">
+  <button
+    onClick={() => {
+      handleNavigation("#contact");
+      setMobileOpen(false);
+    }}
+    className="w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-3 rounded-full font-bold shadow-lg"
+  >
+    Get a Quote
+  </button>
+</div>
+
             </div>
           </motion.div>
         )}

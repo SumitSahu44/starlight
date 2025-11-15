@@ -19,6 +19,7 @@ const Services = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Mouse move effects (keep as is)
       cardsRef.current.forEach((card) => {
         const button = card.querySelector('.service-card');
 
@@ -45,6 +46,7 @@ const Services = () => {
         });
       });
 
+      // CHANGED: Remove ScrollTrigger to make animation happen immediately
       gsap.fromTo(cardsRef.current,
         { rotationY: 90, opacity: 0, scale: 0.8 },
         {
@@ -54,13 +56,11 @@ const Services = () => {
           duration: 1.5,
           stagger: 0.3,
           ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-          }
+          // Removed scrollTrigger to make it play immediately
         }
       );
 
+      // Floating icon animation (keep as is)
       gsap.to('.service-icon', {
         y: -10,
         rotation: 5,
@@ -76,11 +76,11 @@ const Services = () => {
   }, []);
 
   const services = [
+    // ... your services data remains the same
     {
       id: 1,
       slug: "SolarPanel",
       title: "Solar Panels",
-      // icon: "☀️",
       image: "https://www.canadiansolar.com/wp-content/uploads/2019/11/27.png",
       description: "High-efficiency solar panel systems designed for long-term savings and reliable clean energy.",
       features: [
@@ -93,12 +93,10 @@ const Services = () => {
       ],
       color: "from-[#FF7A2A] to-[#FF9A52]"
     },
-
     {
       id: 2,
-       slug: "BatteryStorage",
+      slug: "BatteryStorage",
       title: "Battery Storage",
-      // icon: "🔋",
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqOVwVfQqfcJCLon7TeRtbaDMk_eWzX4K0Zg&s",
       description: "Store solar power and use it anytime—even at night or during outages—for full energy independence.",
       features: [
@@ -111,12 +109,10 @@ const Services = () => {
       ],
       color: "from-[#4A6ED1] to-[#6B8CFF]"
     },
-
     {
       id: 3,
-       slug: "EVChargingStations",
+      slug: "EVChargingStations",
       title: "EV Charging Stations",
-      // icon: "🚗⚡",
       image: "https://media.electrify-canada.ca/assets/images/thumbnail/270-ElectrifyCanadaReginaSaskatchewan.jpg",
       description: "Fast, modern EV chargers for homes & businesses—powered by renewable solar energy.",
       features: [
@@ -148,54 +144,52 @@ const Services = () => {
       </div>
 
       {/* Cards */}
-     {/* Cards */}
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
-  {services.map((service) => (
-    <Link
-      key={service.id}
-      to={`/services/${service.slug}`}
-      className="block group relative cursor-pointer"
-    >
-      <div
-        ref={addToRefs}
-        className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50`}
-      >
-        {/* Image */}
-        <div className="w-full h-52 mb-6 rounded-2xl overflow-hidden">
-          <img
-            src={service.image}
-            alt={service.title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
-          />
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
+        {services.map((service) => (
+          <Link
+            key={service.id}
+            to={`/services/${service.slug}`}
+            className="block group relative cursor-pointer"
+          >
+            <div
+              ref={addToRefs}
+              className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50`}
+            >
+              {/* Image */}
+              <div className="w-full h-52 mb-6 rounded-2xl overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+                />
+              </div>
 
-        {/* Icon */}
-        <div className="text-5xl mb-4 service-icon">{service.icon}</div>
+              {/* Icon */}
+              <div className="text-5xl mb-4 service-icon">{service.icon}</div>
 
-        <h3 className="text-3xl font-bold text-white mb-4">
-          {service.title}
-        </h3>
+              <h3 className="text-3xl font-bold text-white mb-4">
+                {service.title}
+              </h3>
 
-        <p className="text-[#B59A90] mb-6">{service.description}</p>
+              <p className="text-[#B59A90] mb-6">{service.description}</p>
 
-        {/* Features */}
-        <ul className="space-y-3 mb-8">
-          {service.features.map((f, i) => (
-            <li key={i} className="flex items-start gap-3 text-white/90">
-              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}></div>
-              {f}
-            </li>
-          ))}
-        </ul>
+              {/* Features */}
+              <ul className="space-y-3 mb-8">
+                {service.features.map((f, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/90">
+                    <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}></div>
+                    {f}
+                  </li>
+                ))}
+              </ul>
 
-        <button className={`relative bg-gradient-to-r ${service.color} text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all`}>
-          Learn More
-        </button>
+              <button className={`relative bg-gradient-to-r ${service.color} text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all`}>
+                Learn More
+              </button>
+            </div>
+          </Link>
+        ))}
       </div>
-    </Link>
-  ))}
-</div>
-
 
       {/* CTA */}
       <div className="text-center mt-20">
