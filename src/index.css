@@ -23,3 +23,83 @@ body {
 .floating-element {
   animation: float 6s ease-in-out infinite;
 }
+
+
+
+
+/* preloader css  */
+/* src/components/preloader.css */
+/* preloader css */
+/* src/components/preloader.css */
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+
+  /* match with hero dark background + glass blur */
+  background: linear-gradient(135deg, rgba(11,16,32,0.95), rgba(18,25,45,0.95));
+  backdrop-filter: blur(6px);
+
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+/* Preloader box */
+.preloader-container {
+  text-align: center;
+  padding: 20px 30px;
+  border-radius: 16px;
+
+  /* background: rgba(20, 28, 50, 0.6); */
+  /* box-shadow: 0 8px 30px rgba(0,0,0,0.25); */
+  transform-origin: center;
+  animation: popIn .45s cubic-bezier(.2,.9,.3,1);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(10px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* three-dot bouncing spinner */
+.spinner {
+  width: 90px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+/* Dots → blue + orange energy pulse */
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+
+  background: linear-gradient(90deg, #4A6ED1, #FF7A2A);
+  animation: bounce 0.9s infinite cubic-bezier(.2,.6,.4,1);
+  box-shadow: 0 6px 18px rgba(74,110,209,0.35);
+}
+
+.dot2 { animation-delay: 0.12s; }
+.dot3 { animation-delay: 0.24s; }
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%    { transform: translateY(-12px); }
+}
+
+.preloader-text {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #B59A90;
+  letter-spacing: 0.4px;
+  opacity: 0.9;
+}
+
+
+/* preload css end  */

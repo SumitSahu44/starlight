@@ -1,71 +1,211 @@
 // components/Navbar.js
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ['Home', 'Services', 'Our Partner', 'Career', 'About Us'];
+  // Smooth scroll helper
+  const smoothScroll = (id) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
+  };
+
+  // Menu click handler
+  const handleNavigation = (href) => {
+    if (href.startsWith("#")) {
+      const sectionId = href.replace("#", "");
+
+      if (location.pathname === "/") {
+        smoothScroll(sectionId);
+      } else {
+        navigate("/");
+        setTimeout(() => smoothScroll(sectionId), 600);
+      }
+    } else {
+      navigate(href);
+    }
+  };
+
+  const navItems = [
+    { label: "Home", href: "#home" },
+    { label: "About Us", href: "#about" },
+    { label: "Our Services", href: "#services" },
+    {
+      label: "Our Programs",
+      dropdown: true,
+      items: [
+        { label: "Builder Partnership", href: "/BuilderProgram" },
+        { label: "REALTOR Partnership", href: "/RealtorPartner" },
+      ],
+    }, 
+    { label: "Blogs", href: "/Blogs" },
+    { label: "Testimonials", href: "#clients" },
+    { label: "Contact Us", href: "#contact" },
+  ];
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      // Change navbar background on scroll
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-[#0B1020]/90 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
+        scrolled ? "bg-[#0B1020]/90 backdrop-blur-lg shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex-shrink-0"
+          <motion.div whileHover={{ scale: 1.05 }} className="text-white text-xl font-bold cursor-pointer"
+            onClick={() => handleNavigation("#home")}
           >
-            <span className="text-white text-xl font-bold">StarLight</span>
+            StarLight
           </motion.div>
 
-          {/* Navigation Items */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
-                  className="text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                  whileHover={{ y: -2 }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8 items-center">
+            {navItems.map((item, index) =>
+              item.dropdown ? (
+                <div
+                  key={index}
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
                 >
-                  {item}
-                </motion.a>
-              ))}
-            </div>
+                  <button className="text-white/90 hover:text-white font-medium">
+                    {item.label}
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute left-0 mt-2 bg-[#0B1020] border border-white/10 backdrop-blur-lg rounded-lg p-3 shadow-xl"
+                      >
+                        {item.items.map((sub, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleNavigation(sub.href)}
+                            className="block px-4 py-2 w-[180px] text-white/90 hover:text-white hover:bg-white/10 rounded-md text-left"
+                          >
+                            {sub.label}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <motion.button
+                  key={index}
+                  onClick={() => handleNavigation(item.href)}
+                  className="text-white/90 hover:text-white px-3 py-2 rounded-md font-medium cursor-pointer"
+                  whileHover={{ y: -2 }}
+                >
+                  {item.label}
+                </motion.button>
+              )
+            )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button className="text-white p-2">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            <svg className="h-7 w-7" fill="none" stroke="currentColor">
+              {mobileOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
+            className="md:hidden bg-[#0B1020]/95 backdrop-blur-lg"
+          >
+            <div className="px-4 py-4 space-y-3">
+
+              {navItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index}>
+                    <button
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      className="w-full text-left text-white/90 font-medium flex justify-between items-center"
+                    >
+                      {item.label}
+                      <span>{dropdownOpen ? "▲" : "▼"}</span>
+                    </button>
+
+                    {dropdownOpen && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {item.items.map((sub, i) => (
+                          <button
+                            key={i}
+                            onClick={() => {
+                              handleNavigation(sub.href);
+                              setMobileOpen(false);
+                            }}
+                            className="block text-white/80 hover:text-white px-2 text-left"
+                          >
+                            {sub.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      handleNavigation(item.href);
+                      setMobileOpen(false);
+                    }}
+                    className="block text-white/90 hover:text-white font-medium w-full text-left"
+                  >
+                    {item.label}
+                  </button>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

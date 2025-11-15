@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Clients = () => {
+const Brands = () => {
   const sectionRef = useRef(null);
   const sliderRef = useRef(null);
   const logosRef = useRef([]);
@@ -19,12 +19,51 @@ const Clients = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Infinite horizontal scroll animation
-      const slideAnimation = gsap.to(sliderRef.current, {
-        x: '-50%', // Since we duplicated the array, we move by half
-        duration: 30,
-        ease: "none",
-        repeat: -1
+      // Wait for images to load before calculating widths
+      const images = sliderRef.current.querySelectorAll('img');
+      const loadPromises = Array.from(images).map(img => {
+        return new Promise(resolve => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.addEventListener('load', resolve);
+            img.addEventListener('error', resolve); // Continue even if some images fail
+          }
+        });
+      });
+
+      Promise.all(loadPromises).then(() => {
+        // Calculate the width of one set of logos (8 items)
+        const firstLogo = sliderRef.current.children[0];
+        if (firstLogo) {
+          const logoWidth = firstLogo.offsetWidth;
+          const gap = 32; // space-x-8 = 2rem = 32px
+          const firstSetWidth = (logoWidth + gap) * 8;
+          
+          // Infinite horizontal scroll animation
+          const slideAnimation = gsap.to(sliderRef.current, {
+            x: `-=${firstSetWidth}`,
+            duration: 25,
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+              x: gsap.utils.unitize(gsap.utils.wrap(-firstSetWidth, 0))
+            }
+          });
+
+          // Pause animation on hover
+          const sliderContainer = sectionRef.current.querySelector('.slider-container');
+          
+          sliderContainer.addEventListener('mouseenter', () => {
+            slideAnimation.pause();
+            gsap.to('.client-logo', { scale: 1.02, duration: 0.3 });
+          });
+
+          sliderContainer.addEventListener('mouseleave', () => {
+            slideAnimation.play();
+            gsap.to('.client-logo', { scale: 1, duration: 0.3 });
+          });
+        }
       });
 
       // Logo entrance animation
@@ -48,29 +87,6 @@ const Clients = () => {
         }
       );
 
-      // Pause animation on hover
-      const sliderContainer = sectionRef.current.querySelector('.slider-container');
-      
-      sliderContainer.addEventListener('mouseenter', () => {
-        slideAnimation.pause();
-        
-        // Add glow effect to all logos
-        gsap.to('.client-logo', {
-          scale: 1.02,
-          duration: 0.3
-        });
-      });
-
-      sliderContainer.addEventListener('mouseleave', () => {
-        slideAnimation.play();
-        
-        // Reset scale
-        gsap.to('.client-logo', {
-          scale: 1,
-          duration: 0.3
-        });
-      });
-
       // Individual logo hover effects
       logosRef.current.forEach((logo) => {
         logo.addEventListener('mouseenter', () => {
@@ -81,7 +97,6 @@ const Clients = () => {
             ease: "back.out(1.7)"
           });
           
-          // Add glow effect
           gsap.to(logo.querySelector('.logo-container'), {
             boxShadow: "0 0 30px rgba(255, 122, 42, 0.4)",
             borderColor: "rgba(255, 122, 42, 0.6)",
@@ -97,7 +112,6 @@ const Clients = () => {
             ease: "back.out(1.7)"
           });
           
-          // Remove glow effect
           gsap.to(logo.querySelector('.logo-container'), {
             boxShadow: "0 0 0px rgba(255, 122, 42, 0)",
             borderColor: "rgba(74, 110, 209, 0.3)",
@@ -111,20 +125,20 @@ const Clients = () => {
     return () => ctx.revert();
   }, []);
 
-  // Client logos data - using actual company names
+  // Client logos data with actual image paths
   const clients = [
-    { name: "EcoHomes Ltd", logo: "🏡" },
-    { name: "SolarTech Inc", logo: "☀️" },
-    { name: "GreenEnergy Co", logo: "🌿" },
-    { name: "PowerSolutions", logo: "⚡" },
-    { name: "RenewCorp", logo: "🔋" },
-    { name: "SunWorks", logo: "🌞" },
-    { name: "EcoBuild", logo: "🏗️" },
-    { name: "CleanPower", logo: "💧" }
+    { name: "EcoHomes Ltd", logo: "/images/brand1.jpeg" },
+    { name: "SolarTech Inc", logo: "/images/brand2.jpeg" },
+    { name: "GreenEnergy Co", logo: "/images/brand3.jpeg" },
+    { name: "PowerSolutions", logo: "/images/brand4.jpeg" },
+    { name: "RenewCorp", logo: "/images/brand5.jpeg" },
+    { name: "SunWorks", logo: "/images/brand6.jpeg" },
+    { name: "EcoBuild", logo: "/images/brand7.jpeg" },
+    { name: "CleanPower", logo: "/images/brand8.jpeg" }
   ];
 
-  // Duplicate clients for seamless loop - we need enough for smooth transition
-  const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
+  // For infinite scroll, we need 3 copies (original + 2 duplicates)
+  const infiniteClients = [...clients, ...clients, ...clients];
 
   return (
     <section 
@@ -134,7 +148,6 @@ const Clients = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        {/* Gradient Orbs */}
         <div className="absolute top-1/2 -left-20 w-80 h-80 bg-[#4A6ED1] rounded-full opacity-5 blur-3xl" />
         <div className="absolute top-1/2 -right-20 w-96 h-96 bg-[#FF7A2A] rounded-full opacity-5 blur-3xl" />
         
@@ -157,7 +170,7 @@ const Clients = () => {
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             <span className="text-white">Our </span>
             <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">
-              Clients
+              Brands
             </span>
           </h2>
           <p className="text-xl text-[#B59A90] max-w-2xl mx-auto">
@@ -166,35 +179,45 @@ const Clients = () => {
         </div>
 
         {/* Single Row Client Logos Slider */}
-        <div className="slider-container relative mb-16">
-          <div className="flex overflow-visible py-4">
-            <div 
-              ref={sliderRef}
-              className="flex items-center space-x-8 lg:space-x-12 px-4"
-            >
-              {duplicatedClients.map((client, index) => (
-                <div
-                  key={`client-${index}`}
-                  ref={addToRefs}
-                  className="client-logo flex-shrink-0 group cursor-pointer"
-                >
-                  <div className="logo-container w-28 h-28 lg:w-32 lg:h-32 bg-gradient-to-br from-[#0B1020] to-[#1a1f38] rounded-2xl border-2 border-[#4A6ED1]/30 flex flex-col items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-[#1a1f38] group-hover:to-[#2a2f48]">
-                    <div className="text-3xl lg:text-4xl mb-2 transform group-hover:scale-110 transition-transform duration-300">
-                      {client.logo}
-                    </div>
-                    <div className="text-center">
-                      <span className="text-white/90 font-semibold text-xs lg:text-sm group-hover:text-[#FF7A2A] transition-colors duration-300">
-                        {client.name}
-                      </span>
+        <div className="slider-container relative mb-16 overflow-hidden">
+          <div 
+            ref={sliderRef}
+            className="flex items-center space-x-8 lg:space-x-12 px-4"
+            style={{ width: 'max-content' }}
+          >
+            {infiniteClients.map((client, index) => (
+              <div
+                key={`client-${index}`}
+                ref={addToRefs}
+                className="client-logo flex-shrink-0 group cursor-pointer"
+              >
+                <div className="logo-container w-40 h-40 lg:w-44 lg:h-44 bg-gradient-to-br from-[#0B1020] to-[#1a1f38] rounded-2xl border-2 border-[#4A6ED1]/30 flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-[#1a1f38] group-hover:to-[#2a2f48] p-4">
+                  <div className="w-full h-full flex items-center justify-center">
+                    <img 
+                      src={client.logo} 
+                      alt={client.name}
+                      className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        // Fallback if image fails to load
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                    {/* Fallback text if image fails to load */}
+                    <div 
+                      className="hidden text-center text-white font-semibold text-lg"
+                      style={{ display: 'none' }}
+                    >
+                      {client.name}
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Stats Section - Improved Design */}
+        {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
           {[
             { number: "500+", label: "Happy Clients", color: "from-[#FF7A2A] to-[#FF9A52]" },
@@ -214,43 +237,9 @@ const Clients = () => {
             </div>
           ))}
         </div>
-
-        {/* Testimonial Preview - Enhanced */}
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#0B1020] to-[#1a1f38] rounded-2xl p-8 lg:p-10 border border-[#4A6ED1]/20 hover:border-[#FF7A2A]/30 transition-all duration-500 group">
-            <div className="text-4xl text-[#FF7A2A] mb-4">"</div>
-            <p className="text-lg lg:text-xl text-[#B59A90] italic mb-6 leading-relaxed group-hover:text-white/80 transition-colors duration-300">
-              Starlight Solar completely transformed our energy infrastructure. Their professional approach and cutting-edge solutions have significantly reduced our operational costs while supporting our sustainability goals.
-            </p>
-            <div className="text-white font-semibold text-lg">— Sarah Johnson, CEO at EcoHomes Ltd</div>
-            <div className="flex justify-center mt-4 space-x-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span key={star} className="text-[#FF7A2A] text-lg">⭐</span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* CTA - Improved */}
-        <div className="text-center mt-12">
-          <button className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-10 py-4 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105">
-            <span className="relative z-10 flex items-center gap-3">
-              Join Our Client Family
-              <svg 
-                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </span>
-            <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
-          </button>
-        </div>
       </div>
 
-      {/* Floating Elements - Reduced Count */}
+      {/* Floating Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, i) => (
           <div
@@ -267,8 +256,16 @@ const Clients = () => {
           />
         ))}
       </div>
+
+      {/* Add CSS for float animation */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
+        }
+      `}</style>
     </section>
   );
 };
 
-export default Clients;
+export default Brands;

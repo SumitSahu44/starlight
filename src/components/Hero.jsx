@@ -92,52 +92,57 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B1020] py-20 lg:py-0"
     >
       {/* Background with solar panel house image */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'url("https://images.newscientist.com/wp-content/uploads/2022/04/05155212/SEI_97228967.jpg")'
-          }}
-        />
-        
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-[#0B1020]/40 z-10" />
-        
-        {/* Animated solar panel graphic */}
-        <div 
-          ref={solarPanelRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 lg:w-64 lg:h-64 z-20 opacity-20 lg:opacity-30"
-        >
-          <div className="grid grid-cols-4 gap-1 lg:gap-2 w-full h-full">
-            {Array.from({ length: 16 }).map((_, i) => (
-              <div 
-                key={i}
-                className="bg-gradient-to-br from-[#4A6ED1] to-[#0B1020] rounded-sm floating-element"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              />
-            ))}
-          </div>
-        </div>
+    {/* Background with video */}
+<div className="absolute inset-0 z-0">
 
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute floating-element"
-              style={{
-                width: `${Math.random() * 80 + 30}px`,
-                height: '1px',
-                background: `linear-gradient(90deg, transparent, #4A6ED1, transparent)`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                opacity: Math.random() * 0.2 + 0.1,
-                animationDelay: `${i * 0.2}s`
-              }}
-            />
-          ))}
-        </div>
-      </div>
+  {/* FULLSCREEN BACKGROUND VIDEO */}
+  <video
+    className="absolute inset-0 w-full h-full object-cover"
+    src="https://media.istockphoto.com/id/2172873384/video/digital-solar-panels-and-renewable-energy-for-connectivity-sustainability-or-clean-power-grid.mp4?s=mp4-640x640-is&k=20&c=P0p5BsfPwirlcktg4_fAHr_A-X57XADftP1_iHRpxkQ="
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+
+  {/* Dark overlay for better text readability */}
+  <div className="absolute inset-0 bg-[#0B1020]/50 z-10" />
+
+  {/* Animated solar panel graphic */}
+  {/* <div 
+    ref={solarPanelRef}
+    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 lg:w-64 lg:h-64 z-20 opacity-20 lg:opacity-30"
+  >
+    <div className="grid grid-cols-4 gap-1 lg:gap-2 w-full h-full">
+      {Array.from({ length: 16 }).map((_, i) => (
+        <div 
+          key={i}
+          className="bg-gradient-to-br from-[#4A6ED1] to-[#0B1020] rounded-sm floating-element"
+          style={{ animationDelay: `${i * 0.1}s` }}
+        />
+      ))}
+    </div>
+  </div> */}
+
+  {/* Animated background elements */}
+  <div className="absolute inset-0 overflow-hidden">
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div
+        key={i}
+        className="absolute floating-element"
+        style={{
+          width: `${Math.random() * 80 + 30}px`,
+          height: '1px',
+          background: `linear-gradient(90deg, transparent, #4A6ED1, transparent)`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          opacity: Math.random() * 0.2 + 0.1,
+          animationDelay: `${i * 0.2}s`
+        }}
+      />
+    ))}
+  </div>
+</div>
 
       {/* Main Content */}
       <div className="relative z-30 text-white w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,9 +167,9 @@ const Hero = () => {
             {/* Stats - Hidden on mobile, shown on tablet and up */}
             <div className="hero-text hidden sm:grid grid-cols-3 gap-4 lg:gap-6 pt-4">
               {[
-                { number: "25+", label: "Years Exp" },
-                { number: "5K+", label: "Projects" },
-                { number: "98%", label: "Satisfaction" }
+                { number: "500Kwh", label: "Carbon Emision Saved" },
+                { number: "00", label: "Trees Planted" },
+                { number: "00", label: "Add krna hai" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-xl lg:text-2xl font-bold text-white">{stat.number}</div>
@@ -193,8 +198,8 @@ const Hero = () => {
             {/* Stats - Mobile only */}
             <div className="hero-text grid grid-cols-3 gap-4 sm:hidden pt-4">
               {[
-                { number: "25+", label: "Years Exp" },
-                { number: "5K+", label: "Projects" },
+                { number: "500Kwh", label: "Carbon Emision Saved" },
+                { number: "Add Krne hai ", label: "trees Planted" },
                 { number: "98%", label: "Satisfaction" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
