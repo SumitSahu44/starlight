@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,9 +78,10 @@ const Services = () => {
   const services = [
     {
       id: 1,
+      slug: "SolarPanel",
       title: "Solar Panels",
-      icon: "☀️",
-      image: "/images/solar-panels.jpg",
+      // icon: "☀️",
+      image: "https://www.canadiansolar.com/wp-content/uploads/2019/11/27.png",
       description: "High-efficiency solar panel systems designed for long-term savings and reliable clean energy.",
       features: [
         "Reduce power bills",
@@ -94,9 +96,10 @@ const Services = () => {
 
     {
       id: 2,
+       slug: "BatteryStorage",
       title: "Battery Storage",
-      icon: "🔋",
-      image: "/images/battery-storage.jpg",
+      // icon: "🔋",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqOVwVfQqfcJCLon7TeRtbaDMk_eWzX4K0Zg&s",
       description: "Store solar power and use it anytime—even at night or during outages—for full energy independence.",
       features: [
         "Use solar energy even at night",
@@ -111,9 +114,10 @@ const Services = () => {
 
     {
       id: 3,
+       slug: "EVChargingStations",
       title: "EV Charging Stations",
-      icon: "🚗⚡",
-      image: "/images/ev-charging.jpg",
+      // icon: "🚗⚡",
+      image: "https://media.electrify-canada.ca/assets/images/thumbnail/270-ElectrifyCanadaReginaSaskatchewan.jpg",
       description: "Fast, modern EV chargers for homes & businesses—powered by renewable solar energy.",
       features: [
         "Fast home EV charging setup",
@@ -144,50 +148,54 @@ const Services = () => {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
-        {services.map((service) => (
-          <div
-            key={service.id}
-            ref={addToRefs}
-            className="group relative cursor-pointer"
-          >
-            <div className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50`}>
+     {/* Cards */}
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
+  {services.map((service) => (
+    <Link
+      key={service.id}
+      to={`/services/${service.slug}`}
+      className="block group relative cursor-pointer"
+    >
+      <div
+        ref={addToRefs}
+        className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50`}
+      >
+        {/* Image */}
+        <div className="w-full h-52 mb-6 rounded-2xl overflow-hidden">
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+          />
+        </div>
 
-              {/* Image */}
-              <div className="w-full h-52 mb-6 rounded-2xl overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
-                />
-              </div>
+        {/* Icon */}
+        <div className="text-5xl mb-4 service-icon">{service.icon}</div>
 
-              {/* Icon */}
-              <div className="text-5xl mb-4 service-icon">{service.icon}</div>
+        <h3 className="text-3xl font-bold text-white mb-4">
+          {service.title}
+        </h3>
 
-              <h3 className="text-3xl font-bold text-white mb-4">
-                {service.title}
-              </h3>
+        <p className="text-[#B59A90] mb-6">{service.description}</p>
 
-              <p className="text-[#B59A90] mb-6">{service.description}</p>
+        {/* Features */}
+        <ul className="space-y-3 mb-8">
+          {service.features.map((f, i) => (
+            <li key={i} className="flex items-start gap-3 text-white/90">
+              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}></div>
+              {f}
+            </li>
+          ))}
+        </ul>
 
-              {/* Features */}
-              <ul className="space-y-3 mb-8">
-                {service.features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-3 text-white/90">
-                    <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}></div>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <button className={`relative bg-gradient-to-r ${service.color} text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all`}>
-                Learn More
-              </button>
-            </div>
-          </div>
-        ))}
+        <button className={`relative bg-gradient-to-r ${service.color} text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all`}>
+          Learn More
+        </button>
       </div>
+    </Link>
+  ))}
+</div>
+
 
       {/* CTA */}
       <div className="text-center mt-20">

@@ -1,6 +1,7 @@
 // App.js
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -13,15 +14,15 @@ import Brands from './components/Brands';
 import Preloader from './components/Preloader';
 import Guarantees from './components/Guarantees';
 import FAQ from './components/FAQ';
-
-// Contact Component
 import Contact from "./components/ContactForm";
 
-// ---- Pages -----
+// Pages
 import BuilderProgram from "./components/BuilderProgram";
 import RealtorPartnership from './components/RealtorPartnership';
-
-
+import BlogPage from './components/Blogs';
+import SolarPanelsService from './components/SolarPanelsService';
+import BatteryStorage from './components/BatteryStorage';
+import EVChargingStations from './components/EVChargingStations';
 function HomePage() {
   return (
     <>
@@ -32,7 +33,7 @@ function HomePage() {
       <Brands />
       <Testimonials />
       <FAQ />
-      <Contact />   {/* Contact ONLY here se hataya */}
+      {/* Contact on homepage also (already below globally) */}
     </>
   );
 }
@@ -48,24 +49,30 @@ function App() {
     <>
       {loading && <Preloader />}
 
-
       <div
         className="App"
         style={{ opacity: loading ? 0 : 1, transition: "opacity .5s ease" }}
       >
         <Router>
+
+          {/* ⭐ Works for all routes */}
+          <ScrollToTop />
+
           <Navbar />
 
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/BuilderProgram" element={<BuilderProgram />} />
             <Route path="/RealtorPartner" element={<RealtorPartnership />} />
+            <Route path="/Blogs" element={<BlogPage />} />
+            <Route path="/services/SolarPanel" element={<SolarPanelsService />} />
+             <Route path="/services/BatteryStorage" element={<BatteryStorage />} />
+              <Route path="/services/EVChargingStations" element={<EVChargingStations />} />
           </Routes>
 
-          {/* ⭐ MAKE CONTACT AVAILABLE IN ALL PAGES */}
+          {/* ⭐ Contact on all pages */}
           <Contact />
 
-          {/* FOOTER ON ALL PAGES */}
           <Footer />
         </Router>
       </div>

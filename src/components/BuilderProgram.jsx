@@ -263,9 +263,9 @@ const BuilderProgram = () => {
               <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:scale-105 transition">
                 Start Partnership
               </button>
-              <button className="border border-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:bg-[#4A6ED1]/20 transition">
+              {/* <button className="border border-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:bg-[#4A6ED1]/20 transition">
                 View Case Studies
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
