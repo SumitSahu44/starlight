@@ -143,7 +143,7 @@ const Brands = () => {
   return (
     <section 
       ref={sectionRef}
-      id="clients"
+    
       className="relative py-20 lg:py-28 bg-[#0B1020] overflow-hidden"
     >
       {/* Background Elements */}

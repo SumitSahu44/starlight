@@ -54,7 +54,7 @@ const Navbar = () => {
       ],
     }, 
     { label: "Blogs", href: "/Blogs" },
-    { label: "Testimonials", href: "#clients" },
+    { label: "Testimonials", href: "#testimonials" },
     { label: "Contact Us", href: "#contact" },
   ];
 
@@ -70,11 +70,19 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} className="text-white text-xl font-bold cursor-pointer"
-            onClick={() => handleNavigation("#home")}
-          >
-            StarLight
-          </motion.div>
+          {/* Logo */}
+<motion.div
+  whileHover={{ scale: 1.05 }}
+  className="cursor-pointer flex items-center"
+  onClick={() => handleNavigation("#home")}
+>
+  <img 
+    src="/images/Logo (4).png"     // <-- yaha apna logo path dalna
+    alt="StarLight"
+    className="h-12 w-auto object-contain"
+  />
+</motion.div>
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 items-center">
@@ -155,7 +163,7 @@ const Navbar = () => {
         {mobileOpen && (
           <motion.div
             initial={{ height: 0 }}
-            animate={{ height: "auto" }}
+            animate={{ height: "100vh" }}
             exit={{ height: 0 }}
             className="md:hidden bg-[#0B1020]/95 backdrop-blur-lg"
           >

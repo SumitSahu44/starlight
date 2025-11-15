@@ -11,13 +11,17 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import Brands from './components/Brands';
 import Preloader from './components/Preloader';
-
-// ---- Separate Page -----
-import BuilderProgram from "./components/BuilderProgram";
-import RealtorPartnership from './components/RealtorPartnership';
 import Guarantees from './components/Guarantees';
 import FAQ from './components/FAQ';
-{/* <Counter /> */}
+
+// Contact Component
+import Contact from "./components/ContactForm";
+
+// ---- Pages -----
+import BuilderProgram from "./components/BuilderProgram";
+import RealtorPartnership from './components/RealtorPartnership';
+
+
 function HomePage() {
   return (
     <>
@@ -28,6 +32,7 @@ function HomePage() {
       <Brands />
       <Testimonials />
       <FAQ />
+      <Contact />   {/* Contact ONLY here se hataya */}
     </>
   );
 }
@@ -36,9 +41,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+    setTimeout(() => setLoading(false), 1500);
   }, []);
 
   return (
@@ -58,6 +61,10 @@ function App() {
             <Route path="/RealtorPartner" element={<RealtorPartnership />} />
           </Routes>
 
+          {/* ⭐ MAKE CONTACT AVAILABLE IN ALL PAGES */}
+          <Contact />
+
+          {/* FOOTER ON ALL PAGES */}
           <Footer />
         </Router>
       </div>

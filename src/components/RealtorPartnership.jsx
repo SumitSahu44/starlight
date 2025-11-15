@@ -214,7 +214,7 @@ const RealtorProgram = () => {
             </p>
 
             <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:scale-105 transition">
-              Join the REALTOR® Program
+              Join the REALTOR Program
             </button>
           </div>
         </div>
@@ -223,7 +223,7 @@ const RealtorProgram = () => {
         <div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
 
           <h2 className="text-4xl font-bold text-white text-center mb-6">
-            REALTOR® Partnership Inquiry
+            REALTOR Partnership Inquiry
           </h2>
 
           <p className="text-[#B59A90] text-lg text-center mb-10">
