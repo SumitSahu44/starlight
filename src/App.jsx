@@ -48,6 +48,7 @@ function App() {
     <>
       {loading && <Preloader />}
 
+
       <div
         className="App"
         style={{ opacity: loading ? 0 : 1, transition: "opacity .5s ease" }}
