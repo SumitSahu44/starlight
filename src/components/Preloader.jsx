@@ -39,18 +39,18 @@ const Preloader = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
           >
-            Stop Renting Power
+            Stop Renting Power Own It!
           </motion.div>
 
           {/* 2: Own It! */}
-          <motion.div
+          {/* <motion.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.3, duration: 0.7, ease: "easeOut" }}
             className="text-[#FFD700] mt-1"
           >
             Own It!
-          </motion.div>
+          </motion.div> */}
 
         </div>
 
