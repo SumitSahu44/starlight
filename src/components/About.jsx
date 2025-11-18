@@ -229,9 +229,10 @@ const About = () => {
 
             {/* CTA Button */}
             <div className="pt-6">
+              <Link to="/contact">
               <button className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-8 py-4 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
                 <span className="relative z-10 flex items-center gap-3">
-                  Our Story
+                  Contact Us
                   <svg 
                     className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
                     fill="none" 
@@ -243,6 +244,7 @@ const About = () => {
                 </span>
                 <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
               </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -253,5 +255,6 @@ const About = () => {
 
 // You'll need to install framer-motion for the motion components
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default About;

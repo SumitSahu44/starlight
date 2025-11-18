@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import QuoteModal from "./QuoteModal";
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -87,13 +87,21 @@ const Navbar = () => {
 
           {/* MOBILE: Get a Quote Button */}
           <button
-            onClick={() => handleNavigation("#contact")}
+           onClick={() => setIsQuoteModalOpen(true)}
             className="md:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
                        text-white text-sm px-3 py-1.5 rounded-full font-semibold 
                        shadow-md mr-3"
           >
-            Get a Quote
+            Get a free Quote
           </button>
+
+{/* Modal */}
+      <QuoteModal 
+        isOpen={isQuoteModalOpen} 
+        onClose={() => setIsQuoteModalOpen(false)} 
+      />
+
+          
 
           {/* MOBILE MENU BUTTON */}
           <button
@@ -172,13 +180,13 @@ const Navbar = () => {
             )}
 
             <motion.button
-              onClick={() => handleNavigation("#contact")}
+                onClick={() => setIsQuoteModalOpen(true)}
               whileHover={{ scale: 1.05, y: -2 }}
               className="hidden md:block bg-gradient-to-r from-[#FF7A2A] 
                          to-[#4A6ED1] text-white px-6 py-2 rounded-full 
                          font-semibold shadow-lg transition-all"
             >
-              Get a Quote
+              Get a Free Quote
             </motion.button>
           </div>
         </div>

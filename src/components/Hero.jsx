@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { Link } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
@@ -236,6 +236,8 @@ const Hero = () => {
 
             {/* CTA Button */}
             <div className="hero-text pt-4 lg:pt-6 text-center lg:text-left">
+              <Link to="#services">
+
               <button
                 ref={ctaRef}
                 className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white w-full sm:w-auto px-8 py-4 lg:px-12 lg:py-4 rounded-full font-bold text-base lg:text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
@@ -248,6 +250,8 @@ const Hero = () => {
                 </span>
                 <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
               </button>
+
+              </Link>
             </div>
           </div>
         </div>

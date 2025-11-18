@@ -220,7 +220,7 @@ const Brands = () => {
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
           {[
-            { number: "500+", label: "Happy Clients", color: "from-[#FF7A2A] to-[#FF9A52]" },
+            { number: "100+", label: "Happy Clients", color: "from-[#FF7A2A] to-[#FF9A52]" },
             { number: "98%", label: "Retention Rate", color: "from-[#4A6ED1] to-[#6B8CFF]" },
             { number: "4.9/5", label: "Average Rating", color: "from-[#B59A90] to-[#d4b8a8]" }
           ].map((stat, index) => (

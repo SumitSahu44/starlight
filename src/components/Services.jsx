@@ -1,8 +1,9 @@
 // components/Services.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-
+import QuoteModal from "./QuoteModal";
 const Services = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const services = [
     {
       id: 1,
@@ -115,11 +116,17 @@ const Services = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-20">
+      <div className="text-center mt-20" onClick={() => setIsQuoteModalOpen(true)}>
         <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-110 transition-all">
-          Get Free Consultation
+          Get a Free Quote
         </button>
       </div>
+
+      {/* Modal */}
+            <QuoteModal 
+              isOpen={isQuoteModalOpen} 
+              onClose={() => setIsQuoteModalOpen(false)} 
+            />
     </section>
   );
 };

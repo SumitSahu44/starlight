@@ -23,6 +23,7 @@ import BlogPage from './components/Blogs';
 import SolarPanelsService from './components/SolarPanelsService';
 import BatteryStorage from './components/BatteryStorage';
 import EVCharging from './components/EVCharging';
+import ContactForm from './components/ContactForm';
 function HomePage() {
   return (
     <>
@@ -68,7 +69,7 @@ function App() {
             <Route path="/services/SolarPanel" element={<SolarPanelsService />} />
              <Route path="/services/BatteryStorage" element={<BatteryStorage />} />
               <Route path="/services/EVCharging" element={<EVCharging />} />
-          </Routes>
+                 </Routes>
 
           {/* ⭐ Contact on all pages */}
           <Contact />
