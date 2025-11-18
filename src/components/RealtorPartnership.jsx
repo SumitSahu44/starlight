@@ -230,12 +230,12 @@ name: "Manpreet Singh",
 email: "Manpreet@yegestates.com",
 phone: "+1 (780) 238-8190",
 },
-// {
-// img: "/images/sample2.jpg",
-// name: "Sarah Mitchell",
-// email: "s.mitchell@example.com",
-// phone: "+1 403-778-1199",
-// },
+{
+img: "/images/WhatsApp Image 2025-11-17 at 11.04.15 AM.jpeg",
+name: "Paras Bhardhwaj",
+email: "paras@muveteam.com",
+phone: "+1780-606-0786",
+},
 // {
 // img: "/images/sample3.jpg",
 // name: "Kevin Thompson",

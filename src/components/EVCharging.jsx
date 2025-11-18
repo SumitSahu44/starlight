@@ -64,8 +64,8 @@ const SolarPanelsService = () => {
       category: "Warranty",
       specs: [
         { name: "Performance", value: "5 years" },
-        { name: "Product", value: "12 years" },
-        { name: "Workmanship", value: "10 years" }
+        // { name: "Product", value: "12 years" },
+        { name: "Workmanship", value: "5 years" }
       ]
     }
   ];

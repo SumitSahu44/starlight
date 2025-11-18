@@ -117,7 +117,7 @@ const Services = () => {
 
       {/* CTA */}
       <div className="text-center mt-20" onClick={() => setIsQuoteModalOpen(true)}>
-        <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-110 transition-all">
+        <button  className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-110 transition-all">
           Get a Free Quote
         </button>
       </div>

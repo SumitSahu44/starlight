@@ -2,9 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";  // <-- Ye add karna
+import QuoteModal from "./QuoteModal";      // <-- Ye add karna
 const SolarPanelsService = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const stats = [
-    { number: "25", label: "Years Warranty", suffix: "" },
+    { number: "10", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "30", label: "Average Savings", suffix: "%" },
     
@@ -72,8 +74,8 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
       category: "Warranty",
       specs: [
         { name: "Performance", value: "10 years" },
-        { name: "Product", value: "12 years" },
-        { name: "Workmanship", value: "10 years" }
+        // { name: "Product", value: "12 years" },
+        { name: "Workmanship", value: "5 years" }
       ]
     }
   ];
@@ -178,7 +180,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
+                  <button onClick={() => setIsQuoteModalOpen(true)} className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
                     <span className="relative z-10">Get Free Assessment</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
@@ -421,8 +423,8 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
                   <button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
                     Start Your Solar Journey
                   </button>
-                  <button className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
-                    Calculate Your Savings
+                    <button  onClick={() => setIsQuoteModalOpen(true)} className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
+                    Get a free quote
                   </button>
                 </div>
               </div>
@@ -431,6 +433,11 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
         </section>
       </div>
 
+ {/* Modal */}
+            <QuoteModal 
+              isOpen={isQuoteModalOpen} 
+              onClose={() => setIsQuoteModalOpen(false)} 
+            />
       {/* Add custom animations to tailwind config */}
       <style jsx>{`
         @keyframes float {

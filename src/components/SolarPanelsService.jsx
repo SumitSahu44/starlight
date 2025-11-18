@@ -1,9 +1,12 @@
-import React from "react";
+import { useState, useEffect } from "react";  // <-- Ye add karna
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";  // <-- Ye add karna
+import QuoteModal from "./QuoteModal";
+
+
 const SolarPanelsService = () => {
   const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
+    const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const stats = [
     { number: "25", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
@@ -182,7 +185,7 @@ const SolarPanelsService = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
+                  <button  onClick={() => setIsQuoteModalOpen(true)} className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
                     <span className="relative z-10">Get Free Assessment</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
@@ -478,12 +481,15 @@ const SolarPanelsService = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                  <button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
+               <Link to="/contact"  ><button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
                     Start Your Solar Journey
+                  </button></Link> 
+                
+                  {/* CTA */}
+               <button  onClick={() => setIsQuoteModalOpen(true)} className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
+                    Get a free quote
                   </button>
-                  <button className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
-                    Get a Free Quote
-                  </button>
+
                 </div>
               </div>
             </motion.div>
@@ -491,6 +497,11 @@ const SolarPanelsService = () => {
         </section>
       </div>
 
+      {/* Modal */}
+            <QuoteModal 
+              isOpen={isQuoteModalOpen} 
+              onClose={() => setIsQuoteModalOpen(false)} 
+            />
       {/* Add custom animations to tailwind config */}
       <style jsx>{`
         @keyframes float {

@@ -277,26 +277,7 @@ const BuilderProgram = () => {
   </div>
 </div>
         {/* CTA */}
-        <div className="text-center mb-20 fade-up">
-          <div className="bg-gradient-to-r from-[#4A6ED1]/10 to-[#FF7A2A]/10 border border-[#4A6ED1]/30 rounded-3xl p-12">
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Ready to Build Brighter?
-            </h2>
-
-            <p className="text-[#B59A90] text-lg max-w-3xl mx-auto mb-6">
-              Join forward-thinking builders using solar to sell faster & increase profits.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:scale-105 transition">
-                Start Partnership
-              </button>
-              {/* <button className="border border-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:bg-[#4A6ED1]/20 transition">
-                View Case Studies
-              </button> */}
-            </div>
-          </div>
-        </div>
+       
 
         {/* FORM */}
        {/* FORM */}

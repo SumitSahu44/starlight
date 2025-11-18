@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -128,9 +129,10 @@ const FAQ = () => {
               Still have questions? Our solar experts are here to help.
             </p>
             
-            <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-8 py-3 rounded-full text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg">
+           <Link to="/contact"> <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-8 py-3 rounded-full text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg">
               Contact Our Team
             </button>
+            </Link>
           </div>
         </div>
       </div>
