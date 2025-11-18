@@ -192,7 +192,7 @@ const About = () => {
               {[
                 "Premium Solar Panels",
                 "Smart Energy Storage",
-                "24/7 Monitoring",
+                "Fast Monitoring Service",
                 "25-Year Warranty",
                 "Expert Installation",
                 "Local Support"
@@ -209,10 +209,10 @@ const About = () => {
             </div>
 
             {/* Stats */}
-            <div ref={statsRef} className="grid grid-cols-3 gap-8 pt-8 border-t border-[#4A6ED1]/30">
+            {/* <div ref={statsRef} className="grid grid-cols-3 gap-8 pt-8 border-t border-[#4A6ED1]/30">
               {[
-                { number: 25, suffix: "+", label: "Years Experience" },
-                { number: 5000, suffix: "+", label: "Projects Completed" },
+                { number: 25, suffix: "", label: "Years of Warranty" },
+                { number: 100, suffix: "+", label: "Projects Completed" },
                 { number: 98, suffix: "%", label: "Customer Satisfaction" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
@@ -225,7 +225,7 @@ const About = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* CTA Button */}
             <div className="pt-6">
