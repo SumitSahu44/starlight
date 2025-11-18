@@ -96,9 +96,13 @@ const RealtorProgram = () => {
           </p>
         </div>
 
+
+
+
         {/* WHY PARTNER SECTION */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-24">
           
+
           {/* LEFT */}
           <div className="fade-left">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -132,7 +136,7 @@ const RealtorProgram = () => {
           <div className="fade-right">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1599427303058-f04cbcf4756f"
+                src="/images/WhatsApp Image 2025-11-17 at 11.00.17 AM.jpeg"
                 alt="Realtor Showing Solar Home"
                 className="rounded-3xl border border-[#4A6ED1]/30 shadow-xl"
               />
@@ -202,6 +206,61 @@ const RealtorProgram = () => {
           </div>
         </div>
 
+
+{/* --- YOUR EXISTING CONTENT ABOVE REMAINS UNCHANGED --- */}
+
+
+{/* NEW SECTION — ALREADY SIGNED PARTNERS */}
+<div className="mt-24 mb-24 fade-up">
+<h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-6">
+REALTOR® Partners Already Signed
+</h2>
+
+
+<p className="text-[#B59A90] text-lg text-center max-w-3xl mx-auto mb-12">
+Trusted professionals who are already part of the Starlight Solar partnership.
+</p>
+
+
+<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+{[
+{
+img: "/images/WhatsApp Image 2025-11-17 at 11.05.16 AM.jpeg",
+name: "Manpreet Singh",
+email: "Manpreet@yegestates.com",
+phone: "+1 (780) 238-8190",
+},
+// {
+// img: "/images/sample2.jpg",
+// name: "Sarah Mitchell",
+// email: "s.mitchell@example.com",
+// phone: "+1 403-778-1199",
+// },
+// {
+// img: "/images/sample3.jpg",
+// name: "Kevin Thompson",
+// email: "kevin.t@example.com",
+// phone: "+1 780-991-4477",
+// },
+].map((p, i) => (
+<div
+key={i}
+className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-8 rounded-3xl border  border-[#4A6ED1]/20 hover:border-[#FF7A2A]/40 transition-all duration-300 hover:scale-105"
+>
+<img
+src={p.img}
+alt={p.name}
+className="w-28 h-28 object-cover object-top rounded-full mx-auto mb-4 border border-[#4A6ED1]/40"
+/>
+
+
+<h3 className="text-xl font-bold text-white text-center mb-1">{p.name}</h3>
+<p className="text-[#B59A90] text-center text-sm">{p.email}</p>
+<p className="text-[#B59A90] text-center text-sm mt-1">{p.phone}</p>
+</div>
+))}
+</div>
+</div>
         {/* CTA */}
         <div className="text-center mb-20 fade-up">
           <div className="bg-gradient-to-r from-[#4A6ED1]/10 to-[#FF7A2A]/10 border border-[#4A6ED1]/30 rounded-3xl p-12">
@@ -219,42 +278,55 @@ const RealtorProgram = () => {
           </div>
         </div>
 
-        {/* FORM */}
-        <div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
+      {/* FORM */}
+<div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
 
-          <h2 className="text-4xl font-bold text-white text-center mb-6">
-            REALTOR Partnership Inquiry
-          </h2>
+  <h2 className="text-4xl font-bold text-white text-center mb-6">
+    REALTOR Partnership Inquiry
+  </h2>
 
-          <p className="text-[#B59A90] text-lg text-center mb-10">
-            Our team will contact you within ASAP..
-          </p>
+  <p className="text-[#B59A90] text-lg text-center mb-10">
+    Our team will contact you within 24 hours.
+  </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              "Realtor Name",
-              "Brokerage / Company",
-              "Position / Title",
-              "Cell Number",
-              "Email",
-              "Website (optional)",
-              "Primary Service Areas",
-              "Preferred Contact Time (Morning/Afternoon/Evening)",
-            ].map((label, i) => (
-              <div key={i} className="fade-up">
-                <label className="text-white/80 text-sm mb-2 block">{label}</label>
-                <input
-                  className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
-                  placeholder={label}
-                />
-              </div>
-            ))}
-          </div>
+  <div className="grid md:grid-cols-2 gap-6">
+    {[
+      "Realtor Name",
+      "Brokerage / Company",
+      "Position / Title",
+      "Cell Number",
+      "Email",
+      "Website (optional)",
+      "Primary Service Areas",
+      "Preferred Contact Time (Morning/Afternoon/Evening)",
+    ].map((label, i) => {
+      
+      // Email tak sare required — Email ka index = 4
+      const isRequired = i <= 4;
 
-          <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
-            Submit Inquiry
-          </button>
+      return (
+        <div key={i} className="fade-up">
+          
+          <label className="text-white/80 text-sm mb-2 block">
+            {label}{" "}
+            {isRequired && <span className="text-red-500">*</span>}
+          </label>
+
+          <input
+            required={isRequired}
+            className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
+            placeholder={label}
+          />
         </div>
+      );
+    })}
+  </div>
+
+  <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
+    Submit Inquiry
+  </button>
+</div>
+
 
       </div>
     </section>

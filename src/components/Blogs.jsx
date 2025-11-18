@@ -244,7 +244,7 @@ const BlogPage = () => {
         </div>
 
         {/* NEWSLETTER SECTION */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -273,7 +273,7 @@ const BlogPage = () => {
               No spam, unsubscribe at any time
             </p>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

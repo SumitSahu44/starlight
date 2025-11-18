@@ -299,45 +299,57 @@ const BuilderProgram = () => {
         </div>
 
         {/* FORM */}
-        <div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
+       {/* FORM */}
+<div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
 
-          <h2 className="text-4xl font-bold text-white text-center mb-6">
-            Start Your Solar Journey
-          </h2>
+  <h2 className="text-4xl font-bold text-white text-center mb-6">
+    Start Your Solar Journey
+  </h2>
 
-          <p className="text-[#B59A90] text-lg text-center mb-10">
-            Our partnership team will contact you within ASAP.
-          </p>
+  <p className="text-[#B59A90] text-lg text-center mb-10">
+    Our partnership team will contact you within ASAP.
+  </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              "Builder / Company Name",
-              "Contact Person",
-              "Position / Title",
-              "Phone Number",
-              "Email Address",
-              "Website",
-              "Project Locations",
-              "Annual Home Volume",
-            ].map((label, i) => (
-              <div key={i} className="fade-up">
-                <label className="text-white/80 text-sm mb-2 block">{label}</label>
-                <input
-                  className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
-                  placeholder={label}
-                />
-              </div>
-            ))}
-          </div>
+  <div className="grid md:grid-cols-2 gap-6">
+    {[
+      "Builder / Company Name",
+      "Contact Person",
+      "Position / Title",
+      "Phone Number",
+      "Email Address",
+      "Website",
+      "Project Locations",
+      "Annual Home Volume",
+    ].map((label, i) => {
+      
+      // Pehle 5 = required (index 0 to 4)
+      const isRequired = i <= 4;
 
-          <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
-            Submit Partnership Inquiry
-          </button>
+      return (
+        <div key={i} className="fade-up">
+          <label className="text-white/80 text-sm mb-2 block">
+            {label}{" "}
+            {isRequired && <span className="text-red-500">*</span>}
+          </label>
 
-          <p className="text-center text-[#B59A90] text-sm mt-4">
-            You agree to our Privacy Policy and consent to contact.
-          </p>
+          <input
+            required={isRequired}
+            className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
+            placeholder={label}
+          />
         </div>
+      );
+    })}
+  </div>
+
+  <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
+    Submit Partnership Inquiry
+  </button>
+
+  <p className="text-center text-[#B59A90] text-sm mt-4">
+    You agree to our Privacy Policy and consent to contact.
+  </p>
+</div>
 
       </div>
     </section>
