@@ -143,7 +143,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://media.istockphoto.com/id/2172873384/video/digital-solar-panels-and-renewable-energy-for-connectivity-sustainability-or-clean-power-grid.mp4?s=mp4-640x640-is&k=20&c=P0p5BsfPwirlcktg4_fAHr_A-X57XADftP1_iHRpxkQ="
+          src="/images/Home Page VIdeo.mp4"
           autoPlay
           loop
           muted
