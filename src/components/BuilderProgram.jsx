@@ -90,7 +90,7 @@ const BuilderProgram = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-[#B59A90] bg-clip-text text-transparent">
-            Builder Partnership
+            Builder Partnership Program  
           </h1>
 
           <p className="text-xl md:text-2xl text-[#B59A90] max-w-4xl mx-auto leading-relaxed">
@@ -100,15 +100,14 @@ const BuilderProgram = () => {
           </p>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto">
             {[
               { number: "40%", label: "Faster Sales" },
-              { number: "25%", label: "Higher Value" },
+              { number: "5%", label: "Higher Value" },
               { number: "100%", label: "Turnkey Solution" },
-              { number: "24/7", label: "Partner Support" },
-            ].map((stat, i) => (
+                ].map((stat, i) => (
               <div key={i} className="fade-up text-center">
-                <div className="text-3xl font-bold text-white mb-1">{stat.number}</div>
+                <div className="text-3xl font-bold text-white mb-1 hover:text-4xl cursor-pointer">{stat.number}</div>
                 <div className="text-[#B59A90]">{stat.label}</div>
               </div>
             ))}
@@ -122,7 +121,7 @@ const BuilderProgram = () => {
           <div className="fade-left">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-0.5 bg-[#FF7A2A]" />
-              <span className="text-[#FF7A2A] font-semibold">For Builders</span>
+              <span className="text-[#FF7A2A] font-semibold text-xl">For Builders</span>
             </div>
 
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -154,18 +153,18 @@ const BuilderProgram = () => {
           <div className="fade-right">
             <div className="relative">
               <img
-                src="https://lirp.cdn-website.com/5cb12704/dms3rep/multi/opt/Navigating+Canada_s+Solar+Boom+How+CRM+Software+is+Empowering+Contractors+.png-640w.png"
-                alt="Solar Powered Home"
+                src="https://images.unsplash.com/photo-1599427303058-f04cbcf4756f"
+                alt="Realtor Showing Solar Home"
                 className="rounded-3xl border border-[#4A6ED1]/30 shadow-xl"
               />
 
               <div className="absolute -bottom-6 -left-6 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] p-4 rounded-2xl text-white shadow-2xl">
-                <div className="font-bold text-lg">$0 Down</div>
-                <div className="text-sm opacity-90">Solar Financing</div>
+                <div className="font-bold text-lg">Sell Faster</div>
+                <div className="text-sm opacity-90">Solar-Ready Homes</div>
               </div>
             </div>
           </div>
-        </div>
+          </div>
 
         {/* BENEFITS GRID */}
         <div className="mb-24">
@@ -199,55 +198,84 @@ const BuilderProgram = () => {
           </div>
         </div>
 
-        {/* PROCESS TIMELINE */}
-        <div className="mb-28">
-          <div className="text-center mb-16 fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              How It Works
-            </h2>
-            <p className="text-[#B59A90] text-lg max-w-3xl mx-auto">
-              Simple, streamlined process from consultation to completion
-            </p>
-          </div>
+       {/* PROCESS TIMELINE - Same Layout, Only Different Images */}
+<div className="mb-28">
+  <div className="text-center mb-16 fade-up">
+    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+      How It Works
+    </h2>
+    <p className="text-[#B59A90] text-lg max-w-3xl mx-auto">
+      Simple, streamlined process from consultation to completion
+    </p>
+  </div>
 
-          <div className="relative space-y-12">
+  <div className="relative space-y-12">
 
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#4A6ED1] to-[#FF7A2A] opacity-30" />
+    {/* Center Gradient Line */}
+    <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#4A6ED1] to-[#FF7A2A] opacity-30" />
 
-            {[
-              { step: "01", title: "Partnership Setup", desc: "We understand your business and project requirements" },
-              { step: "02", title: "System Design", desc: "Custom solar solutions for your home designs" },
-              { step: "03", title: "Seamless Installation", desc: "Coordinated installation during construction" },
-              { step: "04", title: "Sales Enablement", desc: "Marketing support and buyer demonstrations" },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className={`fade-up relative flex items-center gap-10 ${
-                  i % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                }`}
-              >
-                <div className="flex-1">
-                  <div className="bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-8 rounded-3xl border border-[#4A6ED1]/30">
-                    <div className="text-[#FF7A2A] text-sm font-semibold mb-1">Step {item.step}</div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-[#B59A90]">{item.desc}</p>
-                  </div>
-                </div>
-
-                <div className="w-5 h-5 bg-[#4A6ED1] rounded-full border-4 border-[#0B1020] z-10" />
-
-                <div className="flex-1">
-                  <img
-                    src="https://img.freepik.com/free-photo/side-view-engineer-drawing-plan-outdoors_23-2149352262.jpg?semt=ais_hybrid&w=740&q=80"
-                    className="rounded-2xl border border-[#4A6ED1]/20 shadow-lg"
-                    alt="Solar Process"
-                  />
-                </div>
-              </div>
-            ))}
+    {[
+      { 
+        step: "01", 
+        title: "Partnership Setup", 
+        desc: "We understand your business and project requirements",
+        img: "https://www.powerinfotoday.com/wp-content/uploads/news/12097/renewable_1.jpg"
+      },
+      { 
+        step: "02", 
+        title: "System Design", 
+        desc: "Custom solar solutions for your home designs",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpEDSFfUcKIIRP6wtzexiKPfzw57CW8afxEQ&s"
+      },
+      { 
+        step: "03", 
+        title: "Seamless Installation", 
+        desc: "Coordinated installation during construction",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWEJI5F1sycvVIc9VA3kR85SEVEv0SHYq9Mw&s"
+      },
+      { 
+        step: "04", 
+        title: "Certified City", 
+        desc: "City compliance and certification made easy",
+        img: "https://xnergs.in/wp-content/uploads/2025/06/commercial-solar-panel-1024x373.png"
+      },
+      { 
+        step: "05", 
+        title: "Sales Enablement", 
+        desc: "Marketing support and buyer demonstrations",
+        img: "https://corecommissions.com/wp-content/uploads/2023/01/Shutterstock_1902726649-1-1.jpg"
+      },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className={`fade-up relative flex items-center gap-10 ${
+          i % 2 === 0 ? "flex-row" : "flex-row-reverse"
+        }`}
+      >
+        {/* Text Card */}
+        <div className="flex-1">
+          <div className="bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-8 rounded-3xl border border-[#4A6ED1]/30">
+            <div className="text-[#FF7A2A] text-sm font-semibold mb-1">Step {item.step}</div>
+            <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
+            <p className="text-[#B59A90]">{item.desc}</p>
           </div>
         </div>
 
+        {/* Center Dot */}
+        <div className="w-5 h-5 bg-[#4A6ED1] rounded-full border-4 border-[#0B1020] z-10" />
+
+        {/* Unique Image for Each Step */}
+        <div className="flex-1">
+          <img
+            src={item.img}
+            className="rounded-2xl border border-[#4A6ED1]/20 shadow-lg w-full h-64 object-cover"
+            alt={item.title}
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
         {/* CTA */}
         <div className="text-center mb-20 fade-up">
           <div className="bg-gradient-to-r from-[#4A6ED1]/10 to-[#FF7A2A]/10 border border-[#4A6ED1]/30 rounded-3xl p-12">
@@ -278,7 +306,7 @@ const BuilderProgram = () => {
           </h2>
 
           <p className="text-[#B59A90] text-lg text-center mb-10">
-            Our partnership team will contact you within 24 hours
+            Our partnership team will contact you within ASAP.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">

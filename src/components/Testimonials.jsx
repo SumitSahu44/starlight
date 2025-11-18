@@ -243,7 +243,7 @@ const Testimonials = () => {
         {/* Stats Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16">
           {[
-            { number: "500+", label: "Happy Clients", icon: "😊" },
+            { number: "100+", label: "Happy Clients", icon: "😊" },
             { number: "4.9/5", label: "Average Rating", icon: "⭐" },
             { number: "98%", label: "Would Recommend", icon: "👍" },
             { number: "24/7", label: "Support", icon: "🔧" }

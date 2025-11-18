@@ -132,10 +132,9 @@ const ContactForm = () => {
               
               <div className="space-y-3">
                 {[
-                  { icon: "📞", method: "Phone", details: "+1 (555) 123-SOLAR", action: "Call Now" },
+                  { icon: "📞", method: "Phone", details: "+17809646364", action: "Call Now" },
                   { icon: "📧", method: "Email", details: "info@starlightsolar.com", action: "Send Email" },
-                  { icon: "🕒", method: "Business Hours", details: "Mon-Fri: 8AM-6PM", action: "View Schedule" }
-                ].map((contact, index) => (
+                 ].map((contact, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-[#0B1020] border border-[#4A6ED1]/10">
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{contact.icon}</span>
@@ -161,7 +160,7 @@ const ContactForm = () => {
             className="bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-md"
           >
             <h3 className="text-2xl font-bold text-white mb-2">Send us a Message</h3>
-            <p className="text-[#B59A90] mb-8">Fill out the form below and we'll get back to you within 24 hours</p>
+            <p className="text-[#B59A90] mb-8">Fill out the form below and we'll get back to you ASAP.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -225,7 +224,7 @@ const ContactForm = () => {
                     <option value="">Select a subject</option>
                     <option value="residential-solar">Residential Solar Installation</option>
                     <option value="commercial-solar">Commercial Solar Project</option>
-                    <option value="builder-partnership">Builder Partnership</option>
+                    <option value="builder-partnership">Builder Partnership Program </option>
                     <option value="maintenance">System Maintenance</option>
                     <option value="general-inquiry">General Inquiry</option>
                   </select>

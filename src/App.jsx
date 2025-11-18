@@ -22,7 +22,7 @@ import RealtorPartnership from './components/RealtorPartnership';
 import BlogPage from './components/Blogs';
 import SolarPanelsService from './components/SolarPanelsService';
 import BatteryStorage from './components/BatteryStorage';
-import EVChargingStations from './components/EVChargingStations';
+import EVCharging from './components/EVCharging';
 function HomePage() {
   return (
     <>
@@ -67,7 +67,7 @@ function App() {
             <Route path="/Blogs" element={<BlogPage />} />
             <Route path="/services/SolarPanel" element={<SolarPanelsService />} />
              <Route path="/services/BatteryStorage" element={<BatteryStorage />} />
-              <Route path="/services/EVChargingStations" element={<EVChargingStations />} />
+              <Route path="/services/EVCharging" element={<EVCharging />} />
           </Routes>
 
           {/* ⭐ Contact on all pages */}

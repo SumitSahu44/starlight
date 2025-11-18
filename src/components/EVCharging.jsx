@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 const SolarPanelsService = () => {
   const stats = [
-    { number: "25", label: "Years Warranty", suffix: "" },
+    { number: "5", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "30", label: "Average Savings", suffix: "%" },
-    { number: "24/7", label: "Monitoring", suffix: "" }
+    
   ];
 
   const features = [
@@ -47,9 +47,9 @@ const SolarPanelsService = () => {
     {
       category: "Performance",
       specs: [
-        { name: "Efficiency Rate", value: "Up to 22.8%" },
-        { name: "Power Output", value: "370-450W" },
-        { name: "Temperature Coefficient", value: "-0.34%/°C" }
+        { name: "Estimated Efficiency Rate", value: "Up to 22.8%" },
+        { name: "Estimated Power Output", value: "370-450W" },
+        { name: "Estimated Temperature Coefficient", value: "-0.34%/°C" }
       ]
     },
     {
@@ -63,7 +63,7 @@ const SolarPanelsService = () => {
     {
       category: "Warranty",
       specs: [
-        { name: "Performance", value: "25 years" },
+        { name: "Performance", value: "5 years" },
         { name: "Product", value: "12 years" },
         { name: "Workmanship", value: "10 years" }
       ]
@@ -160,7 +160,7 @@ const SolarPanelsService = () => {
                 </div>
                 
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                  EV Charging <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">Stations</span>
+                  EV Charging <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent"></span>
                 </h1>
                 
                 <p className="text-xl text-[#B59A90] mb-8 leading-relaxed">
@@ -324,63 +324,7 @@ const SolarPanelsService = () => {
           </div>
         </section>
 
-        {/* Installation Process */}
-        <section className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Simple <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">Installation</span> Process
-              </h2>
-              <p className="text-xl text-[#B59A90] max-w-2xl mx-auto">
-                From consultation to activation, we make going solar effortless and stress-free
-              </p>
-            </motion.div>
-
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#4A6ED1] to-[#FF7A2A] opacity-30 hidden lg:block" />
-              
-              <div className="space-y-8 lg:space-y-12">
-                {installationProcess.map((step, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className={`relative flex flex-col lg:flex-row items-center gap-8 ${
-                      index % 2 === 0 ? 'lg:flex-row-reverse' : ''
-                    }`}
-                  >
-                    {/* Step Content */}
-                    <div className={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
-                      <div className="bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-2xl p-6 border border-[#4A6ED1]/20 hover:border-[#FF7A2A]/50 transition-all duration-300">
-                        <div className="text-sm text-[#FF7A2A] font-semibold mb-2">Step {step.step}</div>
-                        <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                        <p className="text-[#B59A90] mb-3">{step.description}</p>
-                        <div className="text-sm text-[#4A6ED1] font-medium">{step.duration}</div>
-                      </div>
-                    </div>
-                    
-                    {/* Step Indicator */}
-                    <div className="flex-shrink-0 relative">
-                      <div className="w-16 h-16 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-2xl">
-                        {step.step}
-                      </div>
-                    </div>
-                    
-                    {/* Spacer for alternating layout */}
-                    <div className="flex-1 hidden lg:block" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         {/* Final CTA */}
         <section className="py-20 px-6">

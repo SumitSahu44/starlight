@@ -1,15 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { useState, useEffect } from "react";  // <-- Ye add karna
 const SolarPanelsService = () => {
   const stats = [
     { number: "25", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "30", label: "Average Savings", suffix: "%" },
-    { number: "24/7", label: "Monitoring", suffix: "" }
+    
   ];
+const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
 
+  // Auto slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
   const features = [
     {
       icon: "⚡",
@@ -47,9 +55,9 @@ const SolarPanelsService = () => {
     {
       category: "Performance",
       specs: [
-        { name: "Efficiency Rate", value: "Up to 22.8%" },
-        { name: "Power Output", value: "370-450W" },
-        { name: "Temperature Coefficient", value: "-0.34%/°C" }
+        { name: "Estimated Efficiency Rate", value: "Up to 22.8%" },
+        { name: "Estimated Power Output", value: "370-450W" },
+        { name: "Estimated Temperature Coefficient", value: "-0.34%/°C" }
       ]
     },
     {
@@ -63,7 +71,7 @@ const SolarPanelsService = () => {
     {
       category: "Warranty",
       specs: [
-        { name: "Performance", value: "25 years" },
+        { name: "Performance", value: "10 years" },
         { name: "Product", value: "12 years" },
         { name: "Workmanship", value: "10 years" }
       ]
@@ -181,37 +189,97 @@ const SolarPanelsService = () => {
               </motion.div>
 
               {/* Right Content - Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
-                  {/* Main Visual */}
-                  <div className="w-full h-80 bg-gradient-to-br from-[#4A6ED1]/10 via-[#FF7A2A]/10 to-[#4A6ED1]/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shine" />
-                    <div className="text-8xl">☀️</div>
-                    <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="h-2 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] rounded-full opacity-60" />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4 mt-6">
-                    {stats.map((stat, index) => (
-                      <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
-                        <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
-                          {stat.number}<span className="text-white">{stat.suffix}</span>
-                        </div>
-                        <div className="text-sm text-[#B59A90]">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+              {/* Right Content - Visual - Professional Carousel */}
+<motion.div
+  initial={{ opacity: 0, x: 50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="relative"
+>
+  <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
+    
+    {/* Carousel Container */}
+    <div className="relative w-full h-80 rounded-2xl overflow-hidden group">
+      <div className="absolute inset-0 flex transition-transform duration-700 ease-in-out" 
+           style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+        
+        {/* Slide 1 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Solar panels on modern home"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 2 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Close-up of premium solar panels"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 3 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Solar farm with blue sky"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020]/70 via-transparent to-transparent pointer-events-none" />
+
+      {/* Left/Right Arrows (visible on hover) */}
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        ←
+      </button>
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        →
+      </button>
+
+      {/* Dots Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {[0, 1, 2].map((index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSlide === index 
+                ? 'bg-[#FF7A2A] w-8' 
+                : 'bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shine" />
+    </div>
+
+    {/* Stats Grid - Same as before */}
+    <div className="grid grid-cols-2 gap-4 mt-6">
+      {stats.map((stat, index) => (
+        <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
+          <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
+            {stat.number}<span className="text-white">{stat.suffix}</span>
+          </div>
+          <div className="text-sm text-[#B59A90]">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</motion.div>
             </div>
           </div>
         </div>
@@ -324,63 +392,7 @@ const SolarPanelsService = () => {
           </div>
         </section>
 
-        {/* Installation Process */}
-        <section className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Simple <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">Installation</span> Process
-              </h2>
-              <p className="text-xl text-[#B59A90] max-w-2xl mx-auto">
-                From consultation to activation, we make going solar effortless and stress-free
-              </p>
-            </motion.div>
-
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#4A6ED1] to-[#FF7A2A] opacity-30 hidden lg:block" />
-              
-              <div className="space-y-8 lg:space-y-12">
-                {installationProcess.map((step, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className={`relative flex flex-col lg:flex-row items-center gap-8 ${
-                      index % 2 === 0 ? 'lg:flex-row-reverse' : ''
-                    }`}
-                  >
-                    {/* Step Content */}
-                    <div className={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
-                      <div className="bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-2xl p-6 border border-[#4A6ED1]/20 hover:border-[#FF7A2A]/50 transition-all duration-300">
-                        <div className="text-sm text-[#FF7A2A] font-semibold mb-2">Step {step.step}</div>
-                        <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                        <p className="text-[#B59A90] mb-3">{step.description}</p>
-                        <div className="text-sm text-[#4A6ED1] font-medium">{step.duration}</div>
-                      </div>
-                    </div>
-                    
-                    {/* Step Indicator */}
-                    <div className="flex-shrink-0 relative">
-                      <div className="w-16 h-16 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-2xl">
-                        {step.step}
-                      </div>
-                    </div>
-                    
-                    {/* Spacer for alternating layout */}
-                    <div className="flex-1 hidden lg:block" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+    
 
         {/* Final CTA */}
         <section className="py-20 px-6">

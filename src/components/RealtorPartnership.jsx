@@ -227,7 +227,7 @@ const RealtorProgram = () => {
           </h2>
 
           <p className="text-[#B59A90] text-lg text-center mb-10">
-            Our team will contact you within 24 hours.
+            Our team will contact you within ASAP..
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">

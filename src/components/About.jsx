@@ -158,9 +158,9 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-transparent to-transparent opacity-60" />
               
               {/* Floating Badge */}
-              <div className="absolute top-6 right-6 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-3 rounded-full font-bold shadow-2xl">
+              {/* <div className="absolute top-6 right-6 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-3 rounded-full font-bold shadow-2xl">
                 Since 1999
-              </div>
+              </div> */}
             </div>
 
             {/* Decorative Element */}

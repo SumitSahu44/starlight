@@ -17,7 +17,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Smooth scroll helper
   const smoothScroll = (id) => {
     setTimeout(() => {
       const el = document.getElementById(id);
@@ -25,7 +24,6 @@ const Navbar = () => {
     }, 300);
   };
 
-  // Menu click handler
   const handleNavigation = (href) => {
     if (href.startsWith("#")) {
       const sectionId = href.replace("#", "");
@@ -49,10 +47,10 @@ const Navbar = () => {
       label: "Our Programs",
       dropdown: true,
       items: [
-        { label: "Builder Partnership", href: "/BuilderProgram" },
+        { label: "Builder Partnership Program ", href: "/BuilderProgram" },
         { label: "REALTOR Partnership", href: "/RealtorPartner" },
       ],
-    }, 
+    },
     { label: "Blogs", href: "/Blogs" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact Us", href: "#contact" },
@@ -67,80 +65,37 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* TOP BAR */}
         <div className="flex items-center justify-between h-16">
 
-          {/* Logo */}
-          {/* Logo */}
-<motion.div
-  whileHover={{ scale: 1.05 }}
-  className="cursor-pointer flex items-center"
-  onClick={() => handleNavigation("#home")}
->
-  <img 
-    src="/images/Logo (4).png"     // <-- yaha apna logo path dalna
-    alt="StarLight"
-    className="h-12 w-auto object-contain"
-  />
-</motion.div>
+          {/* LOGO */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="cursor-pointer flex items-center"
+            onClick={() => handleNavigation("#home")}
+          >
+            <img
+              src="/images/Logo (4).png"
+              alt="StarLight"
+              className="h-12 w-auto object-contain"
+            />
+          </motion.div>
 
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 items-center">
-            {navItems.map((item, index) =>
-              item.dropdown ? (
-                <div
-                  key={index}
-                  className="relative"
-                  onMouseEnter={() => setDropdownOpen(true)}
-                  onMouseLeave={() => setDropdownOpen(false)}
-                >
-                  <button className="text-white/90 hover:text-white font-medium">
-                    {item.label}
-                  </button>
 
-                  <AnimatePresence>
-                    {dropdownOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute left-0 mt-2 bg-[#0B1020] border border-white/10 backdrop-blur-lg rounded-lg p-3 shadow-xl"
-                      >
-                        {item.items.map((sub, i) => (
-                          <button
-                            key={i}
-                            onClick={() => handleNavigation(sub.href)}
-                            className="block px-4 py-2 w-[180px] text-white/90 hover:text-white hover:bg-white/10 rounded-md text-left"
-                          >
-                            {sub.label}
-                          </button>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <motion.button
-                  key={index}
-                  onClick={() => handleNavigation(item.href)}
-                  className="text-white/90 hover:text-white px-3 py-2 rounded-md font-medium cursor-pointer"
-                  whileHover={{ y: -2 }}
-                >
-                  {item.label}
-                </motion.button>
-              )
-            )}
-            <motion.button
-  onClick={() => handleNavigation("#contact")}
-  whileHover={{ scale: 1.05, y: -2 }}
-  className="hidden md:block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-2 rounded-full font-semibold shadow-lg transition-all"
->
-  Get a Quote
-</motion.button>
 
-          </div>
+          {/* MOBILE: Get a Quote Button */}
+          <button
+            onClick={() => handleNavigation("#contact")}
+            className="md:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
+                       text-white text-sm px-3 py-1.5 rounded-full font-semibold 
+                       shadow-md mr-3"
+          >
+            Get a Quote
+          </button>
 
-          {/* Mobile Menu Button */}
+          {/* MOBILE MENU BUTTON */}
           <button
             className="md:hidden text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -163,10 +118,73 @@ const Navbar = () => {
               )}
             </svg>
           </button>
+
+          {/* DESKTOP NAVIGATION */}
+          <div className="hidden md:flex space-x-8 items-center">
+            {navItems.map((item, index) =>
+              item.dropdown ? (
+                <div
+                  key={index}
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  <button className="text-white/90 hover:text-white font-medium">
+                    {item.label}
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute left-0 mt-2 bg-[#0B1020] 
+                                   border border-white/10 backdrop-blur-lg 
+                                   rounded-lg p-3 shadow-xl"
+                      >
+                        {item.items.map((sub, i) => (
+                          <button
+                            key={i}
+                            onClick={() => handleNavigation(sub.href)}
+                            className="block px-4 py-2 w-[180px] text-white/90 
+                                       hover:text-white hover:bg-white/10 
+                                       rounded-md text-left"
+                          >
+                            {sub.label}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <motion.button
+                  key={index}
+                  onClick={() => handleNavigation(item.href)}
+                  className="text-white/90 hover:text-white px-3 py-2 
+                             rounded-md font-medium cursor-pointer"
+                  whileHover={{ y: -2 }}
+                >
+                  {item.label}
+                </motion.button>
+              )
+            )}
+
+            <motion.button
+              onClick={() => handleNavigation("#contact")}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="hidden md:block bg-gradient-to-r from-[#FF7A2A] 
+                         to-[#4A6ED1] text-white px-6 py-2 rounded-full 
+                         font-semibold shadow-lg transition-all"
+            >
+              Get a Quote
+            </motion.button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -182,7 +200,8 @@ const Navbar = () => {
                   <div key={index}>
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="w-full text-left text-white/90 font-medium flex justify-between items-center"
+                      className="w-full text-left text-white/90 font-medium 
+                                 flex justify-between items-center"
                     >
                       {item.label}
                       <span>{dropdownOpen ? "▲" : "▼"}</span>
@@ -197,7 +216,8 @@ const Navbar = () => {
                               handleNavigation(sub.href);
                               setMobileOpen(false);
                             }}
-                            className="block text-white/80 hover:text-white px-2 text-left"
+                            className="block text-white/80 hover:text-white 
+                                       px-2 text-left"
                           >
                             {sub.label}
                           </button>
@@ -212,23 +232,27 @@ const Navbar = () => {
                       handleNavigation(item.href);
                       setMobileOpen(false);
                     }}
-                    className="block text-white/90 hover:text-white font-medium w-full text-left"
+                    className="block text-white/90 hover:text-white 
+                               font-medium w-full text-left"
                   >
                     {item.label}
                   </button>
                 )
               )}
-              <div className="px-4 pb-6">
-  <button
-    onClick={() => {
-      handleNavigation("#contact");
-      setMobileOpen(false);
-    }}
-    className="w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-3 rounded-full font-bold shadow-lg"
-  >
-    Get a Quote
-  </button>
-</div>
+
+              {/* <div className="px-4 pb-6">
+                <button
+                  onClick={() => {
+                    handleNavigation("#contact");
+                    setMobileOpen(false);
+                  }}
+                  className="w-full bg-gradient-to-r from-[#FF7A2A] 
+                             to-[#4A6ED1] text-white px-6 py-3 rounded-full 
+                             font-bold shadow-lg"
+                >
+                  Get a Quote
+                </button>
+              </div> */}
 
             </div>
           </motion.div>

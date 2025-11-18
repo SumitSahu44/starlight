@@ -1,82 +1,9 @@
 // components/Services.js
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { Link } from "react-router-dom";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Services = () => {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
-  const [activeService, setActiveService] = useState(0);
-
-  const addToRefs = (el) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Mouse move effects (keep as is)
-      cardsRef.current.forEach((card) => {
-        const button = card.querySelector('.service-card');
-
-        card.addEventListener('mousemove', (e) => {
-          const { left, top, width, height } = card.getBoundingClientRect();
-          const x = (e.clientX - left) / width - 0.5;
-          const y = (e.clientY - top) / height - 0.5;
-
-          gsap.to(button, {
-            x: x * 20,
-            y: y * 15,
-            duration: 0.8,
-            ease: "power2.out"
-          });
-        });
-
-        card.addEventListener('mouseleave', () => {
-          gsap.to(button, {
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "elastic.out(1, 0.5)"
-          });
-        });
-      });
-
-      // CHANGED: Remove ScrollTrigger to make animation happen immediately
-      gsap.fromTo(cardsRef.current,
-        { rotationY: 90, opacity: 0, scale: 0.8 },
-        {
-          rotationY: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1.5,
-          stagger: 0.3,
-          ease: "back.out(1.7)",
-          // Removed scrollTrigger to make it play immediately
-        }
-      );
-
-      // Floating icon animation (keep as is)
-      gsap.to('.service-icon', {
-        y: -10,
-        rotation: 5,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.5
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   const services = [
-    // ... your services data remains the same
     {
       id: 1,
       slug: "SolarPanel",
@@ -111,8 +38,8 @@ const Services = () => {
     },
     {
       id: 3,
-      slug: "EVChargingStations",
-      title: "EV Charging Stations",
+      slug: "EVCharging",
+      title: "EV Charging ",
       image: "https://media.electrify-canada.ca/assets/images/thumbnail/270-ElectrifyCanadaReginaSaskatchewan.jpg",
       description: "Fast, modern EV chargers for homes & businesses—powered by renewable solar energy.",
       features: [
@@ -128,7 +55,7 @@ const Services = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="services" className="relative py-24 lg:py-32 bg-[#0B1020] overflow-hidden">
+    <section id="services" className="relative py-24 lg:py-32 bg-[#0B1020] overflow-hidden">
 
       {/* Section Heading */}
       <div className="text-center mb-20">
@@ -152,8 +79,7 @@ const Services = () => {
             className="block group relative cursor-pointer"
           >
             <div
-              ref={addToRefs}
-              className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50`}
+              className={`service-card bg-[#11172B] border border-[#4A6ED1]/20 rounded-3xl p-8 shadow-lg overflow-hidden transition-all duration-500 hover:border-[#4A6ED1]/50 hover:scale-105`}
             >
               {/* Image */}
               <div className="w-full h-52 mb-6 rounded-2xl overflow-hidden">
@@ -164,9 +90,6 @@ const Services = () => {
                 />
               </div>
 
-              {/* Icon */}
-              <div className="text-5xl mb-4 service-icon">{service.icon}</div>
-
               <h3 className="text-3xl font-bold text-white mb-4">
                 {service.title}
               </h3>
@@ -176,7 +99,7 @@ const Services = () => {
               {/* Features */}
               <ul className="space-y-3 mb-8">
                 {service.features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-3 text-white/90">
+                  <li key={i} className="flex items-center gap-3 text-white/90">
                     <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}></div>
                     {f}
                   </li>

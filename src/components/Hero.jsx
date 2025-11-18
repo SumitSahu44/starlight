@@ -1,4 +1,3 @@
-// components/Hero.js
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +10,22 @@ const Hero = () => {
   const textRightRef = useRef(null);
   const ctaRef = useRef(null);
   const solarPanelRef = useRef(null);
+
+  // Refs for each stat number (desktop + mobile)
+  const statRefs = useRef([]);
+
+  // Stats data (same for desktop and mobile, but different values in mobile)
+  const desktopStats = [
+    { number: 500, suffix: "Kwh", label: "Carbon Emission Saved" },
+    { number: 75, suffix: "k", label: "Trees Planted" },
+    { number: 330, suffix: "tons", label: "CO2 Reduced" }
+  ];
+
+  const mobileStats = [
+    { number: 500, suffix: "Kwh", label: "Carbon Emission Saved" },
+    { number: 75, suffix: "k", label: "Trees Planted" },
+    { number: 98, suffix: "%", label: "Satisfaction" }
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -69,7 +84,7 @@ const Hero = () => {
         ease: "power1.inOut"
       });
 
-      // Background elements animation
+      // Background floating lines
       gsap.fromTo('.floating-element',
         { y: 0 },
         {
@@ -81,6 +96,39 @@ const Hero = () => {
           stagger: 0.3
         }
       );
+
+      // Counter Animation (trigger when stats enter viewport)
+      statRefs.current.forEach((el, index) => {
+        if (!el) return;
+
+        const isMobile = el.closest('.sm\\:hidden'); // mobile stats
+        const stats = isMobile ? mobileStats : desktopStats;
+        const stat = stats[index];
+
+        if (!stat) return;
+
+        const endValue = stat.number;
+        const suffix = stat.suffix || "";
+
+        gsap.fromTo(el, 
+          { innerText: 0 },
+          {
+            innerText: endValue,
+            duration: 2.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            },
+            snap: { innerText: 1 },
+            onUpdate: function () {
+              el.innerText = Math.ceil(this.targets()[0].innerText) + suffix;
+            }
+          }
+        );
+      });
+
     }, heroRef);
 
     return () => ctx.revert();
@@ -91,66 +139,44 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B1020] py-20 lg:py-0"
     >
-      {/* Background with solar panel house image */}
-    {/* Background with video */}
-<div className="absolute inset-0 z-0">
-
-  {/* FULLSCREEN BACKGROUND VIDEO */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    src="https://media.istockphoto.com/id/2172873384/video/digital-solar-panels-and-renewable-energy-for-connectivity-sustainability-or-clean-power-grid.mp4?s=mp4-640x640-is&k=20&c=P0p5BsfPwirlcktg4_fAHr_A-X57XADftP1_iHRpxkQ="
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-
-  {/* Dark overlay for better text readability */}
-  <div className="absolute inset-0 bg-[#0B1020]/50 z-10" />
-
-  {/* Animated solar panel graphic */}
-  {/* <div 
-    ref={solarPanelRef}
-    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 lg:w-64 lg:h-64 z-20 opacity-20 lg:opacity-30"
-  >
-    <div className="grid grid-cols-4 gap-1 lg:gap-2 w-full h-full">
-      {Array.from({ length: 16 }).map((_, i) => (
-        <div 
-          key={i}
-          className="bg-gradient-to-br from-[#4A6ED1] to-[#0B1020] rounded-sm floating-element"
-          style={{ animationDelay: `${i * 0.1}s` }}
+      {/* Background Video + Overlay */}
+      <div className="absolute inset-0 z-0">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="https://media.istockphoto.com/id/2172873384/video/digital-solar-panels-and-renewable-energy-for-connectivity-sustainability-or-clean-power-grid.mp4?s=mp4-640x640-is&k=20&c=P0p5BsfPwirlcktg4_fAHr_A-X57XADftP1_iHRpxkQ="
+          autoPlay
+          loop
+          muted
+          playsInline
         />
-      ))}
-    </div>
-  </div> */}
-
-  {/* Animated background elements */}
-  <div className="absolute inset-0 overflow-hidden">
-    {Array.from({ length: 12 }).map((_, i) => (
-      <div
-        key={i}
-        className="absolute floating-element"
-        style={{
-          width: `${Math.random() * 80 + 30}px`,
-          height: '1px',
-          background: `linear-gradient(90deg, transparent, #4A6ED1, transparent)`,
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          opacity: Math.random() * 0.2 + 0.1,
-          animationDelay: `${i * 0.2}s`
-        }}
-      />
-    ))}
-  </div>
-</div>
+        <div className="absolute inset-0 bg-[#0B1020]/50 z-10" />
+        
+        {/* Animated background lines */}
+        <div className="absolute inset-0 overflow-hidden">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute floating-element"
+              style={{
+                width: `${Math.random() * 80 + 30}px`,
+                height: '1px',
+                background: `linear-gradient(90deg, transparent, #4A6ED1, transparent)`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                opacity: Math.random() * 0.2 + 0.1,
+                animationDelay: `${i * 0.2}s`
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="relative z-30 text-white w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           
           {/* Left Text Column */}
-          <div ref={textLeftRef} className="space-y-6 lg:space-y-8  lg:text-left">
-            {/* Main Heading */}
+          <div ref={textLeftRef} className="space-y-6 lg:space-y-8">
             <div className="space-y-3 lg:space-y-4">
               <h1 className="hero-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
                 GET
@@ -158,21 +184,21 @@ const Hero = () => {
                   SOLAR
                 </span>
               </h1>
-              
               <div className="hero-text text-xl sm:text-2xl md:text-3xl font-light text-[#B59A90]">
                 <span className="font-bold text-white">POWERED</span>
               </div>
             </div>
 
-            {/* Stats - Hidden on mobile, shown on tablet and up */}
+            {/* Desktop Stats */}
             <div className="hero-text hidden sm:grid grid-cols-3 gap-4 lg:gap-6 pt-4">
-              {[
-                { number: "500Kwh", label: "Carbon Emision Saved" },
-                { number: "00", label: "Trees Planted" },
-                { number: "00", label: "Add krna hai" }
-              ].map((stat, index) => (
+              {desktopStats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-xl lg:text-2xl font-bold text-white">{stat.number}</div>
+                  <div 
+                    ref={el => statRefs.current[index] = el}
+                    className="text-xl lg:text-2xl font-bold text-white"
+                  >
+                    0{stat.suffix}
+                  </div>
                   <div className="text-xs lg:text-sm text-[#B59A90]">{stat.label}</div>
                 </div>
               ))}
@@ -181,12 +207,10 @@ const Hero = () => {
 
           {/* Right Text Column */}
           <div ref={textRightRef} className="space-y-6 lg:space-y-8">
-            {/* Description */}
             <div className="hero-text space-y-4 lg:space-y-6">
               <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 lg:text-left">
                 Residential & Commercial Solar Solutions from Zeno Renewables deliver daily reliable energy to homes and businesses across
               </p>
-              
               <div className="text-base sm:text-lg lg:text-xl font-semibold lg:text-left">
                 <span className="text-[#4A6ED1]">Calgary</span>, 
                 <span className="text-[#FF7A2A]"> Edmonton</span>, 
@@ -195,15 +219,16 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Stats - Mobile only */}
+            {/* Mobile Stats */}
             <div className="hero-text grid grid-cols-3 gap-4 sm:hidden pt-4">
-              {[
-                { number: "500Kwh", label: "Carbon Emision Saved" },
-                { number: "Add Krne hai ", label: "trees Planted" },
-                { number: "98%", label: "Satisfaction" }
-              ].map((stat, index) => (
+              {mobileStats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-lg font-bold text-white">{stat.number}</div>
+                  <div 
+                    ref={el => statRefs.current[index + 3] = el} // offset for mobile
+                    className="text-lg font-bold text-white"
+                  >
+                    0{stat.suffix}
+                  </div>
                   <div className="text-xs text-[#B59A90]">{stat.label}</div>
                 </div>
               ))}
@@ -217,17 +242,10 @@ const Hero = () => {
               >
                 <span className="relative z-10 flex items-center justify-center lg:justify-start gap-2 lg:gap-3">
                   EXPLORE OUR SERVICES
-                  <svg 
-                    className="w-4 h-4 lg:w-5 lg:h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-4 h-4 lg:w-5 lg:h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
-                
-                {/* Shine effect */}
                 <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
               </button>
             </div>

@@ -1,15 +1,22 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { useState, useEffect } from "react";  // <-- Ye add karna
 const SolarPanelsService = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
   const stats = [
     { number: "25", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
-    { number: "30", label: "Average Savings", suffix: "%" },
-    { number: "24/7", label: "Monitoring", suffix: "" }
+    { number: "40", label: "Average Savings", suffix: "%" },
+    
   ];
-
+// Auto slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
   const features = [
     {
       icon: "⚡",
@@ -47,9 +54,9 @@ const SolarPanelsService = () => {
     {
       category: "Performance",
       specs: [
-        { name: "Efficiency Rate", value: "Up to 22.8%" },
-        { name: "Power Output", value: "370-450W" },
-        { name: "Temperature Coefficient", value: "-0.34%/°C" }
+        { name: "Estimated Efficiency Rate", value: "Up to 22.8%" },
+        { name: "Estimated Power Output", value: "370-450W" },
+        { name: "Estimated Temperature Coefficient", value: "-0.34%/°C" }
       ]
     },
     {
@@ -64,8 +71,7 @@ const SolarPanelsService = () => {
       category: "Warranty",
       specs: [
         { name: "Performance", value: "25 years" },
-        { name: "Product", value: "12 years" },
-        { name: "Workmanship", value: "10 years" }
+         { name: "Workmanship", value: "5 years" }
       ]
     }
   ];
@@ -75,19 +81,19 @@ const SolarPanelsService = () => {
       step: "1",
       title: "Consultation",
       description: "Free energy assessment",
-      duration: "1-2 days"
+      duration: "1 day"
     },
     {
       step: "2",
       title: "Design",
       description: "Custom system planning",
-      duration: "3-5 days"
+      duration: "3-4 days"
     },
     {
       step: "3",
       title: "Approval",
       description: "Permits & documentation",
-      duration: "2-4 weeks"
+      duration: "3-6 weeks"
     },
     {
       step: "4",
@@ -97,9 +103,15 @@ const SolarPanelsService = () => {
     },
     {
       step: "5",
+      title: "Inspection",
+      description: "Check & approval",
+      duration: "1-2 weeks"
+    },
+    {
+      step: "6",
       title: "Activation",
       description: "System commissioning",
-      duration: "1 day"
+      duration: "1-2 weeks"
     }
   ];
 
@@ -181,37 +193,97 @@ const SolarPanelsService = () => {
               </motion.div>
 
               {/* Right Content - Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
-                  {/* Main Visual */}
-                  <div className="w-full h-80 bg-gradient-to-br from-[#4A6ED1]/10 via-[#FF7A2A]/10 to-[#4A6ED1]/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shine" />
-                    <div className="text-8xl">☀️</div>
-                    <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="h-2 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] rounded-full opacity-60" />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4 mt-6">
-                    {stats.map((stat, index) => (
-                      <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
-                        <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
-                          {stat.number}<span className="text-white">{stat.suffix}</span>
-                        </div>
-                        <div className="text-sm text-[#B59A90]">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+             {/* Right Content - Visual - Professional Carousel */}
+<motion.div
+  initial={{ opacity: 0, x: 50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="relative"
+>
+  <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
+    
+    {/* Carousel Container */}
+    <div className="relative w-full h-80 rounded-2xl overflow-hidden group">
+      <div className="absolute inset-0 flex transition-transform duration-700 ease-in-out" 
+           style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+        
+        {/* Slide 1 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Solar panels on modern home"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 2 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Close-up of premium solar panels"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 3 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            alt="Solar farm with blue sky"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020]/70 via-transparent to-transparent pointer-events-none" />
+
+      {/* Left/Right Arrows (visible on hover) */}
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        ←
+      </button>
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        →
+      </button>
+
+      {/* Dots Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {[0, 1, 2].map((index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSlide === index 
+                ? 'bg-[#FF7A2A] w-8' 
+                : 'bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shine" />
+    </div>
+
+    {/* Stats Grid - Same as before */}
+    <div className="grid grid-cols-2 gap-4 mt-6">
+      {stats.map((stat, index) => (
+        <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
+          <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
+            {stat.number}<span className="text-white">{stat.suffix}</span>
+          </div>
+          <div className="text-sm text-[#B59A90]">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</motion.div>
             </div>
           </div>
         </div>
@@ -410,7 +482,7 @@ const SolarPanelsService = () => {
                     Start Your Solar Journey
                   </button>
                   <button className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
-                    Calculate Your Savings
+                    Get a Free Quote
                   </button>
                 </div>
               </div>

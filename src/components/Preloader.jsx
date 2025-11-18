@@ -31,7 +31,7 @@ const Preloader = () => {
         />
 
         {/* RIGHT — TAGLINE ANIMATION */}
-        <div className="overflow-hidden text-white font-semibold text-3xl">
+        <div className="overflow-hidden text-white font-semibold text-3xl md:text-5xl uppercase">
 
           {/* 1: Stop Renting Power */}
           <motion.div
