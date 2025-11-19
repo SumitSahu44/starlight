@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SolarPanelsService = () => {
   const stats = [
-    { number: "5", label: "Years Warranty", suffix: "" },
+    { number: "5-10", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "30", label: "Average Savings", suffix: "%" },
     
@@ -63,7 +63,7 @@ const SolarPanelsService = () => {
     {
       category: "Warranty",
       specs: [
-        { name: "Performance", value: "5 years" },
+        { name: "Performance", value: "5-10 years" },
         // { name: "Product", value: "12 years" },
         { name: "Workmanship", value: "5 years" }
       ]

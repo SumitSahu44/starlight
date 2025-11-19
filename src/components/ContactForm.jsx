@@ -133,7 +133,7 @@ const ContactForm = () => {
               <div className="space-y-3">
                 {[
                   { icon: "📞", method: "Phone", details: "+17809646364", action: "Call Now" },
-                  { icon: "📧", method: "Email", details: "info@starlightsolar.com", action: "Send Email" },
+                  { icon: "📧", method: "Email", details: "info@starlightsolar.ca", action: "Send Email" },
                  ].map((contact, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-[#0B1020] border border-[#4A6ED1]/10">
                     <div className="flex items-center gap-3">

@@ -130,8 +130,8 @@ const Footer = () => {
                   <div className="w-10 h-10 bg-gradient-to-r from-[#FF7A2A] to-[#B59A90] rounded-full flex items-center justify-center">
                     <Mail size={18} className="text-white" />
                   </div>
-                  <a href="mailto:info@starlightsolar.com" className="text-white/80 hover:text-[#4A6ED1] transition">
-                    info@starlightsolar.com
+                  <a href="mailto:info@starlightsolar.ca" className="text-white/80 hover:text-[#4A6ED1] transition">
+                    Info@starlightsolar.ca
                   </a>
                 </div>
               </div>
