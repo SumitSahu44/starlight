@@ -144,7 +144,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="/images/Home Page VIdeo.mp4"
+          src="/images/bg-video.mp4"
           autoPlay
           loop
           muted
