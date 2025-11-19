@@ -40,7 +40,7 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   };
 
   const navItems = [
-    { label: "Home", href: "#home" },
+    { label: "Home", href: "/" },
     { label: "About Us", href: "#about" },
     { label: "Our Services", href: "#services" },
     {
