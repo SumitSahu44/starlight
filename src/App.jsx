@@ -1,6 +1,5 @@
-// App.js
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
 import Navbar from './components/Navbar';
@@ -16,7 +15,6 @@ import Guarantees from './components/Guarantees';
 import FAQ from './components/FAQ';
 import Contact from "./components/ContactForm";
 
-// Pages
 import BuilderProgram from "./components/BuilderProgram";
 import RealtorPartnership from './components/RealtorPartnership';
 import BlogPage from './components/Blogs';
@@ -24,17 +22,48 @@ import SolarPanelsService from './components/SolarPanelsService';
 import BatteryStorage from './components/BatteryStorage';
 import EVCharging from './components/EVCharging';
 import ContactForm from './components/ContactForm';
+
 function HomePage() {
   return (
     <>
       <Hero />
-      <About />
+      About
       <Services />
       <Guarantees />
       <Brands />
       <Testimonials />
       <FAQ />
-      {/* Contact on homepage also (already below globally) */}
+    </>
+  );
+}
+
+// ⭐ Wrap App UI inside a component that can read useLocation()
+function AppContent() {
+  const location = useLocation();
+
+  const hideContactOn = ["/BuilderProgram", "/RealtorPartner"];
+
+  const shouldShowContact = !hideContactOn.includes(location.pathname);
+
+  return (
+    <>
+      <ScrollToTop />
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/BuilderProgram" element={<BuilderProgram />} />
+        <Route path="/RealtorPartner" element={<RealtorPartnership />} />
+        <Route path="/Blogs" element={<BlogPage />} />
+        <Route path="/services/SolarPanel" element={<SolarPanelsService />} />
+        <Route path="/services/BatteryStorage" element={<BatteryStorage />} />
+        <Route path="/services/EVCharging" element={<EVCharging />} />
+      </Routes>
+
+      {/* ⭐ Contact component sab pages par dikhenga, bas selected pages me nahi */}
+      {shouldShowContact && <Contact />}
+
+      <Footer />
     </>
   );
 }
@@ -49,32 +78,12 @@ function App() {
   return (
     <>
       {loading && <Preloader />}
-
       <div
         className="App"
         style={{ opacity: loading ? 0 : 1, transition: "opacity .5s ease" }}
       >
         <Router>
-
-          {/* ⭐ Works for all routes */}
-          <ScrollToTop />
-
-          <Navbar />
-
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/BuilderProgram" element={<BuilderProgram />} />
-            <Route path="/RealtorPartner" element={<RealtorPartnership />} />
-            <Route path="/Blogs" element={<BlogPage />} />
-            <Route path="/services/SolarPanel" element={<SolarPanelsService />} />
-             <Route path="/services/BatteryStorage" element={<BatteryStorage />} />
-              <Route path="/services/EVCharging" element={<EVCharging />} />
-                 </Routes>
-
-          {/* ⭐ Contact on all pages */}
-          <Contact />
-
-          <Footer />
+          <AppContent />
         </Router>
       </div>
     </>

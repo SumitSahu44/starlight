@@ -25,7 +25,7 @@ const Services = () => {
       id: 2,
       slug: "BatteryStorage",
       title: "Battery Storage",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqOVwVfQqfcJCLon7TeRtbaDMk_eWzX4K0Zg&s",
+      image: "/images/Gemini_Generated_Image_dllgyudllgyudllg.png",
       description: "Store solar power and use it anytime—even at night or during outages—for full energy independence.",
       features: [
         "Use solar energy even at night",

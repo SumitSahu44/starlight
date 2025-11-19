@@ -53,7 +53,7 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
     },
     { label: "Blogs", href: "/Blogs" },
     { label: "Testimonials", href: "#testimonials" },
-    { label: "Contact Us", href: "#contact" },
+    { label: "Contact Us", href: "/contact" },
   ];
 
   return (

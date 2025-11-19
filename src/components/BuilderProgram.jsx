@@ -95,7 +95,7 @@ const BuilderProgram = () => {
 
           <p className="text-xl md:text-2xl text-[#B59A90] max-w-4xl mx-auto leading-relaxed">
             Build the future. Sell smarter. Partner with{" "}
-            <span className="text-[#4A6ED1] font-semibold">Starlight Solar</span> 
+            <span className="text-[#4A6ED1] font-semibold">Starlight Solar </span> 
             to create homes that sell themselves.
           </p>
 
@@ -219,31 +219,31 @@ const BuilderProgram = () => {
         step: "01", 
         title: "Partnership Setup", 
         desc: "We understand your business and project requirements",
-        img: "https://www.powerinfotoday.com/wp-content/uploads/news/12097/renewable_1.jpg"
+        img: "/images/beautiful-alternative-energy-plant-with-solar-panels.jpg"
       },
       { 
         step: "02", 
         title: "System Design", 
         desc: "Custom solar solutions for your home designs",
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpEDSFfUcKIIRP6wtzexiKPfzw57CW8afxEQ&s"
+        img: "/images/drone-5008211_1920.jpg"
       },
       { 
         step: "03", 
         title: "Seamless Installation", 
         desc: "Coordinated installation during construction",
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWEJI5F1sycvVIc9VA3kR85SEVEv0SHYq9Mw&s"
+        img: "/images/pexels-trinh-tr-n-191284110-14613940.jpg"
       },
       { 
         step: "04", 
         title: "Certified City", 
         desc: "City compliance and certification made easy",
-        img: "https://xnergs.in/wp-content/uploads/2025/06/commercial-solar-panel-1024x373.png"
+        img: "/images/person-near-alternative-energy-plant.jpg"
       },
       { 
         step: "05", 
         title: "Sales Enablement", 
         desc: "Marketing support and buyer demonstrations",
-        img: "https://corecommissions.com/wp-content/uploads/2023/01/Shutterstock_1902726649-1-1.jpg"
+        img: "/images/pexels-gustavo-fring-4254160.jpg"
       },
     ].map((item, i) => (
       <div

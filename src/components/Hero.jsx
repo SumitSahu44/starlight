@@ -209,8 +209,7 @@ const Hero = () => {
           <div ref={textRightRef} className="space-y-6 lg:space-y-8">
             <div className="hero-text space-y-4 lg:space-y-6">
               <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 lg:text-left">
-                Residential & Commercial Solar Solutions from Zeno Renewables deliver daily reliable energy to homes and businesses across
-              </p>
+                Starlight Solar brings clean, affordable solar power to Alberta homes—so you can stop renting electricity and start owning your energy.</p>
               <div className="text-base sm:text-lg lg:text-xl font-semibold lg:text-left">
                 <span className="text-[#4A6ED1]">Calgary</span>, 
                 <span className="text-[#FF7A2A]"> Edmonton</span>, 

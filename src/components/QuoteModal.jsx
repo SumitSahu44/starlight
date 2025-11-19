@@ -5,12 +5,10 @@ import { X } from 'lucide-react';
 const QuoteModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
-      // Prevent background scroll
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollbarWidth}px`; // Prevent layout shift
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-      // Force scroll to top so modal always appears in center
       window.scrollTo(0, 0);
     }
 
@@ -20,7 +18,6 @@ const QuoteModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  // Escape key close
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose();
@@ -41,7 +38,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
 
-      {/* Modal Container - Always Center (Critical Fix) */}
+      {/* Modal Container */}
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
           <div
@@ -59,11 +56,12 @@ const QuoteModal = ({ isOpen, onClose }) => {
               <h2 className="text-3xl font-bold text-white pr-10">
                 Get Your <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">Free Quote</span>
               </h2>
-              <p className="text-[#B59A90] text-sm mt-1">We'll reply within 24 hours!</p>
+              <p className="text-[#B59A90] text-sm mt-1">We'll reply you ASAP!</p>
             </div>
 
             {/* Form */}
             <form className="p-6 space-y-5">
+              {/* Existing Fields */}
               <div>
                 <label className="block text-white font-medium mb-2">
                   Full Name <span className="text-[#FF7A2A]">*</span>
@@ -100,6 +98,58 @@ const QuoteModal = ({ isOpen, onClose }) => {
                 />
               </div>
 
+              {/* NEW FIELDS START HERE */}
+              <div>
+                <label className="block text-white font-medium mb-2">
+                  Installation Address <span className="text-[#FF7A2A]">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="123 Main Street, Apt 4B"
+                  className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white placeholder-[#B59A90]/60 focus:border-[#4A6ED1] focus:outline-none transition"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white font-medium mb-2">
+                    City <span className="text-[#FF7A2A]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Toronto"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white placeholder-[#B59A90]/60 focus:border-[#4A6ED1] focus:outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">
+                    Province / State <span className="text-[#FF7A2A]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Ontario"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white placeholder-[#B59A90]/60 focus:border-[#4A6ED1] focus:outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-white font-medium mb-2">
+                  Postal / ZIP Code <span className="text-[#FF7A2A]">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="M5V 2T6"
+                  className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white placeholder-[#B59A90]/60 focus:border-[#4A6ED1] focus:outline-none transition"
+                />
+              </div>
+              {/* NEW FIELDS END */}
+
               <div>
                 <label className="block text-white font-medium mb-2">Interested In</label>
                 <select className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#4A6ED1] focus:outline-none transition">
@@ -108,6 +158,19 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   <option>Battery Storage</option>
                   <option>EV Charging</option>
                   <option>All Services</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-white font-medium mb-2">How Did You Hear About Us?</label>
+                <select className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#4A6ED1] focus:outline-none transition">
+                  <option value="">Select an option</option>
+                  <option>Google Search</option>
+                  <option>Facebook / Instagram</option>
+                  <option>YouTube</option>
+                  <option>Friend / Family</option>
+                  <option>Radio / TV</option>
+                  <option>Other</option>
                 </select>
               </div>
 
@@ -125,17 +188,6 @@ const QuoteModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-
-      {/* Hide scrollbar but keep functionality */}
-      <style jsx>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </>
   );
 };
