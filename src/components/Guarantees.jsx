@@ -57,7 +57,7 @@ const Guarantees = () => {
   const guarantees = [
     {
       icon: "🛡️",
-      title: "Lifetime Craftsmanship Warranty",
+      title: "5 Years of Craftsmanship Warranty",
       description: "We stand by our solar installations with a Lifetime Craftsmanship Warranty, ensuring your investment is protected with guaranteed quality and durability.",
       gradient: "from-[#4A6ED1] to-[#4A6ED1]/80",
       border: "border-[#4A6ED1]/40",

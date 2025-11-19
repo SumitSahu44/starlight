@@ -137,6 +137,7 @@ const Hero = () => {
   return (
     <section 
       ref={heroRef}
+      id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B1020] py-20 lg:py-0"
     >
       {/* Background Video + Overlay */}
@@ -210,12 +211,7 @@ const Hero = () => {
             <div className="hero-text space-y-4 lg:space-y-6">
               <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 lg:text-left">
                 Starlight Solar brings clean, affordable solar power to Alberta homes—so you can stop renting electricity and start owning your energy.</p>
-              <div className="text-base sm:text-lg lg:text-xl font-semibold lg:text-left">
-                <span className="text-[#4A6ED1]">Calgary</span>, 
-                <span className="text-[#FF7A2A]"> Edmonton</span>, 
-                <span className="text-[#B59A90]"> Lethbridge</span>, and the 
-                <span className="text-white"> Greater Toronto Area</span>.
-              </div>
+             
             </div>
 
             {/* Mobile Stats */}

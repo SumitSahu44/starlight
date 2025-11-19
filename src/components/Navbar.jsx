@@ -7,7 +7,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -67,7 +67,7 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* TOP BAR */}
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 ">
 
           {/* LOGO */}
           <motion.div
@@ -76,9 +76,9 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
             onClick={() => handleNavigation("#home")}
           >
             <img
-              src="/images/Logo (4).png"
+              src="/images/WhatsApp_Image_2025-11-19_wat_12.13.42_PM-removebg-preview.png"
               alt="StarLight"
-              className="h-12 w-auto object-contain"
+              className="h-16 md:h-20 p-3 w-auto object-contain"
             />
           </motion.div>
 
@@ -86,14 +86,16 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
 
           {/* MOBILE: Get a Quote Button */}
-          <button
-           onClick={() => setIsQuoteModalOpen(true)}
-            className="md:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
-                       text-white text-sm px-3 py-1.5 rounded-full font-semibold 
-                       shadow-md mr-3"
-          >
-            Get a free Quote
-          </button>
+          
+           <motion.button
+  onClick={() => setIsQuoteModalOpen(true)}
+  whileHover={{ scale: 1.07, y: -2 }}
+  className="md:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
+             text-white px-2 py-2 rounded-full font-semibold shadow-lg
+             transition-all animate-glow"
+>
+  Get a Free Quote
+</motion.button>
 
 {/* Modal */}
       <QuoteModal 
@@ -179,15 +181,16 @@ const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
               )
             )}
 
-            <motion.button
-                onClick={() => setIsQuoteModalOpen(true)}
-              whileHover={{ scale: 1.05, y: -2 }}
-              className="hidden md:block bg-gradient-to-r from-[#FF7A2A] 
-                         to-[#4A6ED1] text-white px-6 py-2 rounded-full 
-                         font-semibold shadow-lg transition-all"
-            >
-              Get a Free Quote
-            </motion.button>
+           <motion.button
+  onClick={() => setIsQuoteModalOpen(true)}
+  whileHover={{ scale: 1.07, y: -2 }}
+  className="hidden md:block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
+             text-white px-6 py-3 rounded-full font-semibold shadow-lg
+             transition-all animate-glow"
+>
+  Get a Free Quote
+</motion.button>
+
           </div>
         </div>
       </div>

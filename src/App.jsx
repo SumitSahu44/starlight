@@ -27,7 +27,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      About
+      <About /> 
       <Services />
       <Guarantees />
       <Brands />
