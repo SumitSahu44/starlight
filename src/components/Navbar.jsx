@@ -40,7 +40,7 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { label: "Home", href: "/" },
+    { label: "Home", href: "#home" },
     { label: "About Us", href: "#about" },
     { label: "Our Services", href: "#services" },
     {
@@ -78,7 +78,7 @@ const Navbar = () => {
             <img
               src="/images/WhatsApp_Image_2025-11-19_wat_12.13.42_PM-removebg-preview.png"
               alt="StarLight"
-              className="h-16 md:h-20 p-3 w-auto object-contain"
+              className="h-16 lg:h-20 p-3 w-auto object-contain"
             />
           </motion.div>
 
@@ -90,7 +90,7 @@ const Navbar = () => {
            <motion.button
   onClick={() => setIsQuoteModalOpen(true)}
   whileHover={{ scale: 1.07, y: -2 }}
-  className="md:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
+  className="lg:hidden bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
              text-white px-2 py-2 rounded-full font-semibold shadow-lg
              transition-all animate-glow"
 >
@@ -107,7 +107,7 @@ const Navbar = () => {
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className="md:hidden text-white"
+            className="lg:hidden text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             <svg className="h-7 w-7" fill="none" stroke="currentColor">
@@ -130,7 +130,7 @@ const Navbar = () => {
           </button>
 
           {/* DESKTOP NAVIGATION */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden lg:flex space-x-8 items-center">
             {navItems.map((item, index) =>
               item.dropdown ? (
                 <div
@@ -139,7 +139,7 @@ const Navbar = () => {
                   onMouseEnter={() => setDropdownOpen(true)}
                   onMouseLeave={() => setDropdownOpen(false)}
                 >
-                  <button className="text-white/90 hover:text-white font-medium">
+                  <button className="text-white/90 whitespace-nowrap hover:text-white font-medium">
                     {item.label}
                   </button>
 
@@ -184,7 +184,7 @@ const Navbar = () => {
            <motion.button
   onClick={() => setIsQuoteModalOpen(true)}
   whileHover={{ scale: 1.07, y: -2 }}
-  className="hidden md:block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
+  className="hidden lg:block bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] 
              text-white px-6 py-3 rounded-full font-semibold shadow-lg
              transition-all animate-glow"
 >
@@ -202,7 +202,7 @@ const Navbar = () => {
             initial={{ height: 0 }}
             animate={{ height: "100vh" }}
             exit={{ height: 0 }}
-            className="md:hidden bg-[#0B1020]/95 backdrop-blur-lg"
+            className="lg:hidden bg-[#0B1020]/95 backdrop-blur-lg"
           >
             <div className="px-4 py-4 space-y-3">
 

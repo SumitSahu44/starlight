@@ -208,7 +208,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
         {/* Slide 1 */}
         <div className="w-full h-full flex-shrink-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            src="/images/battery.png"
             alt="Solar panels on modern home"
             className="w-full h-full object-cover"
           />
@@ -217,7 +217,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
         {/* Slide 2 */}
         <div className="w-full h-full flex-shrink-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            src="https://images.unsplash.com/photo-1662601311150-c20f76b7cb20?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Close-up of premium solar panels"
             className="w-full h-full object-cover"
           />
@@ -226,7 +226,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
         {/* Slide 3 */}
         <div className="w-full h-full flex-shrink-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            src="https://images.unsplash.com/photo-1681263576084-e054b2d89903?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QmF0dGVyeSUyMFN0b3JhZ2UlMjBzb2xhcnxlbnwwfHwwfHx8MA%3D%3D"
             alt="Solar farm with blue sky"
             className="w-full h-full object-cover"
           />
@@ -326,7 +326,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
         {/* Technology & Specifications */}
         <section className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-1 gap-12">
               {/* Technology Highlights */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -368,7 +368,7 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
               </motion.div>
 
               {/* Specifications */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
@@ -389,13 +389,14 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
             </div>
           </div>
         </section>
 
     
 
+        {/* Final CTA */}
         {/* Final CTA */}
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto">
@@ -420,12 +421,15 @@ const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                  <button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
+               <Link to="/contact"  ><button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
                     Start Your Solar Journey
-                  </button>
-                    <button  onClick={() => setIsQuoteModalOpen(true)} className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
+                  </button></Link> 
+                
+                  {/* CTA */}
+               <button  onClick={() => setIsQuoteModalOpen(true)} className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
                     Get a free quote
                   </button>
+
                 </div>
               </div>
             </motion.div>

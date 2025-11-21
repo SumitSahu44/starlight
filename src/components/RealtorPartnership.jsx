@@ -1,11 +1,66 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";   // <-- ADD THIS
+
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const RealtorProgram = () => {
   const sectionRef = useRef(null);
+const [formData, setFormData] = useState({
+    realtorName: "",
+    company: "",
+    title: "",
+    cell: "",
+    email: "",
+    website: "",
+    areas: "",
+    contactTime: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [statusType, setStatusType] = useState(""); // success / error
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatusMessage("");
+    setStatusType("");
+
+    try {
+      const res = await fetch("/api/sendRealtorForm.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        setStatusMessage("Thank you! Your REALTOR® partnership inquiry has been sent successfully. We'll contact you soon!");
+        setStatusType("success");
+        setFormData({
+          realtorName: "", company: "", title: "", cell: "", email: "",
+          website: "", areas: "", contactTime: ""
+        });
+      } else {
+        setStatusMessage(data.message || "Something went wrong. Please try again.");
+        setStatusType("error");
+      }
+    } catch (err) {
+      setStatusMessage("Network error. Please check your connection and try again.");
+      setStatusType("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -50,6 +105,8 @@ const RealtorProgram = () => {
     });
     return () => ctx.revert();
   }, []);
+
+ 
 
   return (
     <section
@@ -136,7 +193,7 @@ const RealtorProgram = () => {
           <div className="fade-right">
             <div className="relative">
               <img
-                src="/images/WhatsApp Image 2025-11-17 at 11.00.17 AM.jpeg"
+                src="/images/r-img.png"
                 alt="Realtor Showing Solar Home"
                 className="rounded-3xl border border-[#4A6ED1]/30 shadow-xl"
               />
@@ -272,61 +329,82 @@ className="w-28 h-28 object-cover object-top rounded-full mx-auto mb-4 border bo
               Join Alberta REALTORS® who close faster, win more listings, and deliver unmatched client value.
             </p>
 
-            <button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:scale-105 transition">
+           <Link to="#realatorform" ><button className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] px-10 py-4 rounded-full text-white font-bold hover:scale-105 transition">
               Join the REALTOR Program
-            </button>
+            </button></Link>
           </div>
         </div>
 
       {/* FORM */}
-<div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
+{/* FORM SECTION */}
+      <div id="realatorform" className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30 shadow-2xl mt-20">
+          <h2 className="text-4xl font-bold text-white text-center mb-6">REALTOR® Partnership Inquiry</h2>
+          <p className="text-[#B59A90] text-lg text-center mb-10">Our team will contact you ASAP.</p>
 
-  <h2 className="text-4xl font-bold text-white text-center mb-6">
-    REALTOR Partnership Inquiry
-  </h2>
+          {/* Success / Error Message */}
+          {statusMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-8 p-5 rounded-xl border text-center font-medium text-lg transition-all ${
+                statusType === "success"
+                  ? "bg-green-500/10 border-green-500/40 text-green-400"
+                  : "bg-red-500/10 border-red-500/40 text-red-400"
+              }`}
+            >
+              {statusType === "success" ? "Success" : "Error"} {statusMessage}
+            </motion.div>
+          )}
 
-  <p className="text-[#B59A90] text-lg text-center mb-10">
-    Our team will contact you ASAP.
-  </p>
+          <form onSubmit={handleSubmit}>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { label: "Realtor Name", name: "realtorName", req: true },
+                { label: "Brokerage / Company", name: "company", req: true },
+                { label: "Position / Title", name: "title", req: true },
+                { label: "Cell Number", name: "cell", req: true },
+                { label: "Email", name: "email", req: true },
+                { label: "Website (optional)", name: "website" },
+                { label: "Primary Service Areas", name: "areas" },
+                { label: "Preferred Contact Time", name: "contactTime" },
+              ].map((item) => (
+                <div key={item.name}>
+                  <label className="text-white/80 text-sm mb-2 block">
+                    {item.label} {item.req && <span className="text-red-500">*</span>}
+                  </label>
+                  <input
+                    type={item.name === "email" ? "email" : "text"}
+                    required={item.req}
+                    name={item.name}
+                    value={formData[item.name]}
+                    onChange={handleChange}
+                    className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none transition placeholder-[#B59A90]/50"
+                    placeholder={item.label}
+                  />
+                </div>
+              ))}
+            </div>
 
-  <div className="grid md:grid-cols-2 gap-6">
-    {[
-      "Realtor Name",
-      "Brokerage / Company",
-      "Position / Title",
-      "Cell Number",
-      "Email",
-      "Website (optional)",
-      "Primary Service Areas",
-      "Preferred Contact Time (Morning/Afternoon/Evening)",
-    ].map((label, i) => {
-      
-      // Email tak sare required — Email ka index = 4
-      const isRequired = i <= 4;
-
-      return (
-        <div key={i} className="fade-up">
-          
-          <label className="text-white/80 text-sm mb-2 block">
-            {label}{" "}
-            {isRequired && <span className="text-red-500">*</span>}
-          </label>
-
-          <input
-            required={isRequired}
-            className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
-            placeholder={label}
-          />
+            <button
+              type="submit"
+              disabled={loading}
+              className={`mt-10 w-full py-5 rounded-xl text-white font-bold text-lg transition-all shadow-xl ${
+                loading
+                  ? "bg-gradient-to-r from-[#4A6ED1]/50 to-[#FF7A2A]/50 cursor-not-allowed"
+                  : "bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] hover:scale-105"
+              }`}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Submitting Inquiry...
+                </div>
+              ) : (
+                "Submit Inquiry"
+              )}
+            </button>
+          </form>
         </div>
-      );
-    })}
-  </div>
-
-  <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
-    Submit Inquiry
-  </button>
-</div>
-
 
       </div>
     </section>

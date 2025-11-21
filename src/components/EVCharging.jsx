@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import QuoteModal from "./QuoteModal";
 const SolarPanelsService = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
+    const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const stats = [
     { number: "5-10", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "30", label: "Average Savings", suffix: "%" },
     
   ];
+
+  // Auto slide every 4 seconds
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
+      }, 4000);
+      return () => clearInterval(interval);
+    }, []);
 
   const features = [
     {
@@ -170,48 +180,106 @@ const SolarPanelsService = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
+                  <button  onClick={() => setIsQuoteModalOpen(true)} className="group relative px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
                     <span className="relative z-10">Get Free Assessment</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
-                  <button className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
-                    View Case Studies
-                  </button>
+                  
                 </div>
               </motion.div>
 
               {/* Right Content - Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
-                  {/* Main Visual */}
-                  <div className="w-full h-80 bg-gradient-to-br from-[#4A6ED1]/10 via-[#FF7A2A]/10 to-[#4A6ED1]/10 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shine" />
-                    <div className="text-8xl">☀️</div>
-                    <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="h-2 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] rounded-full opacity-60" />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4 mt-6">
-                    {stats.map((stat, index) => (
-                      <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
-                        <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
-                          {stat.number}<span className="text-white">{stat.suffix}</span>
-                        </div>
-                        <div className="text-sm text-[#B59A90]">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+                          {/* Right Content - Visual - Professional Carousel */}
+<motion.div
+  initial={{ opacity: 0, x: 50 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="relative"
+>
+  <div className="relative bg-gradient-to-br from-[#1a1f38] to-[#0B1020] rounded-3xl p-8 border border-[#4A6ED1]/30 backdrop-blur-lg">
+    
+    {/* Carousel Container */}
+    <div className="relative w-full h-80 rounded-2xl overflow-hidden group">
+      <div className="absolute inset-0 flex transition-transform duration-700 ease-in-out" 
+           style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+        
+        {/* Slide 1 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://plus.unsplash.com/premium_photo-1714672716183-a24d36dc9169?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8RVYlMjBDaGFyZ2luZyUyMHNvbGFyfGVufDB8fDB8fHww"
+            alt="Solar panels on modern home"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 2 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1692052463269-c7b2b31e016f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8RVYlMjBDaGFyZ2luZyUyMHNvbGFyfGVufDB8fDB8fHww"
+            alt="Close-up of premium solar panels"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Slide 3 */}
+        <div className="w-full h-full flex-shrink-0">
+          <img 
+            src="https://images.unsplash.com/photo-1692052626528-cb97a934a63b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEVWJTIwQ2hhcmdpbmclMjBzb2xhcnxlbnwwfHwwfHx8MA%3D%3D"
+            alt="Solar farm with blue sky"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020]/70 via-transparent to-transparent pointer-events-none" />
+
+      {/* Left/Right Arrows (visible on hover) */}
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        ←
+      </button>
+      <button 
+        onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+      >
+        →
+      </button>
+
+      {/* Dots Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {[0, 1, 2].map((index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSlide === index 
+                ? 'bg-[#FF7A2A] w-8' 
+                : 'bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shine" />
+    </div>
+
+    {/* Stats Grid - Same as before */}
+    <div className="grid grid-cols-2 gap-4 mt-6">
+      {stats.map((stat, index) => (
+        <div key={index} className="text-center p-4 bg-[#0B1020] rounded-xl border border-[#4A6ED1]/20">
+          <div className="text-2xl font-bold text-[#FF7A2A] mb-1">
+            {stat.number}<span className="text-white">{stat.suffix}</span>
+          </div>
+          <div className="text-sm text-[#B59A90]">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</motion.div>
             </div>
           </div>
         </div>
@@ -256,7 +324,7 @@ const SolarPanelsService = () => {
         {/* Technology & Specifications */}
         <section className="py-20 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-1 gap-12">
               {/* Technology Highlights */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -298,7 +366,7 @@ const SolarPanelsService = () => {
               </motion.div>
 
               {/* Specifications */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
@@ -319,7 +387,7 @@ const SolarPanelsService = () => {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
             </div>
           </div>
         </section>
@@ -327,6 +395,7 @@ const SolarPanelsService = () => {
         
 
         {/* Final CTA */}
+       {/* Final CTA */}
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -350,12 +419,15 @@ const SolarPanelsService = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                  <button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
+               <Link to="/contact"  ><button className="px-8 py-4 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white font-bold rounded-2xl hover:scale-105 transition-transform duration-300 shadow-2xl">
                     Start Your Solar Journey
+                  </button></Link> 
+                
+                  {/* CTA */}
+               <button  onClick={() => setIsQuoteModalOpen(true)} className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
+                    Get a free quote
                   </button>
-                  <button className="px-8 py-4 bg-transparent border-2 border-[#4A6ED1]/30 text-white font-bold rounded-2xl hover:border-[#FF7A2A] hover:bg-[#FF7A2A]/10 transition-all duration-300">
-                    Calculate Your Savings
-                  </button>
+
                 </div>
               </div>
             </motion.div>
@@ -363,6 +435,13 @@ const SolarPanelsService = () => {
         </section>
       </div>
 
+
+
+  {/* Modal */}
+            <QuoteModal 
+              isOpen={isQuoteModalOpen} 
+              onClose={() => setIsQuoteModalOpen(false)} 
+            />
       {/* Add custom animations to tailwind config */}
       <style jsx>{`
         @keyframes float {

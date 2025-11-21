@@ -177,7 +177,7 @@ const About = () => {
               </h3>
               
               <p className="text-lg text-[#B59A90] leading-relaxed">
-                For over two decades, Starlight Solar has been at the forefront of renewable energy innovation, 
+                For two years, Starlight Solar has been at the forefront of renewable energy innovation, 
                 transforming how homes and businesses across Canada harness the power of the sun.
               </p>
 
@@ -193,7 +193,7 @@ const About = () => {
                 "Premium Solar Panels",
                 "Smart Energy Storage",
                 "Fast Monitoring Service",
-                "25-Year Warranty",
+                "25-30 Year Warranty",
                 "Expert Installation",
                 "Local Support"
               ].map((feature, index) => (

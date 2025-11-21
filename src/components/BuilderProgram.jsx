@@ -1,11 +1,66 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";   // <-- ADD THIS
 
 gsap.registerPlugin(ScrollTrigger);
 
 const BuilderProgram = () => {
   const sectionRef = useRef(null);
+
+ const [formData, setFormData] = useState({
+    builderName: "",
+    contactPerson: "",
+    position: "",
+    phone: "",
+    email: "",
+    website: "",
+    locations: "",
+    homeVolume: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [statusType, setStatusType] = useState(""); // success or error
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatusMessage("");
+    setStatusType("");
+
+    try {
+      const res = await fetch("/api/sendBuilder.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        setStatusMessage("Thank you! Your partnership inquiry has been sent successfully. We'll contact you soon!");
+        setStatusType("success");
+        setFormData({
+          builderName: "", contactPerson: "", position: "", phone: "", email: "",
+          website: "", locations: "", homeVolume: ""
+        });
+      } else {
+        setStatusMessage(data.message || "Something went wrong. Please try again.");
+        setStatusType("error");
+      }
+    } catch (err) {
+      setStatusMessage("Network error. Please check your connection and try again.");
+      setStatusType("error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -281,56 +336,73 @@ const BuilderProgram = () => {
 
         {/* FORM */}
        {/* FORM */}
-<div className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30">
+  {/* FORM - अब सुंदर message आएगा */}
+        <form onSubmit={handleSubmit} className="fade-up bg-gradient-to-br from-[#1a1f38] to-[#0B1020] p-10 rounded-3xl border border-[#4A6ED1]/30 shadow-2xl">
+          <h2 className="text-4xl font-bold text-white text-center mb-6">Start Your Solar Journey</h2>
+          <p className="text-[#B59A90] text-lg text-center mb-10">Our partnership team will contact you ASAP.</p>
 
-  <h2 className="text-4xl font-bold text-white text-center mb-6">
-    Start Your Solar Journey
-  </h2>
+          {/* Success / Error Message */}
+          {statusMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mb-8 p-5 rounded-xl border text-center font-medium text-lg transition-all ${
+                statusType === "success"
+                  ? "bg-green-500/10 border-green-500/40 text-green-400"
+                  : "bg-red-500/10 border-red-500/40 text-red-400"
+              }`}
+            >
+              {statusType === "success" ? "Success" : "Error"} {statusMessage}
+            </motion.div>
+          )}
 
-  <p className="text-[#B59A90] text-lg text-center mb-10">
-    Our partnership team will contact you within ASAP.
-  </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { label: "Builder / Company Name", name: "builderName", req: true },
+              { label: "Contact Person", name: "contactPerson", req: true },
+              { label: "Position / Title", name: "position", req: true },
+              { label: "Phone Number", name: "phone", req: true },
+              { label: "Email Address", name: "email", req: true },
+              { label: "Website", name: "website" },
+              { label: "Project Locations", name: "locations" },
+              { label: "Annual Home Volume", name: "homeVolume" },
+            ].map((item) => (
+              <div key={item.name}>
+                <label className="text-white/80 text-sm mb-2 block">
+                  {item.label} {item.req && <span className="text-red-500">*</span>}
+                </label>
+                <input
+                  type={item.name === "email" ? "email" : "text"}
+                  required={item.req}
+                  name={item.name}
+                  value={formData[item.name]}
+                  onChange={handleChange}
+                  className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none transition placeholder-[#B59A90]/50"
+                  placeholder={item.label}
+                />
+              </div>
+            ))}
+          </div>
 
-  <div className="grid md:grid-cols-2 gap-6">
-    {[
-      "Builder / Company Name",
-      "Contact Person",
-      "Position / Title",
-      "Phone Number",
-      "Email Address",
-      "Website",
-      "Project Locations",
-      "Annual Home Volume",
-    ].map((label, i) => {
-      
-      // Pehle 5 = required (index 0 to 4)
-      const isRequired = i <= 4;
-
-      return (
-        <div key={i} className="fade-up">
-          <label className="text-white/80 text-sm mb-2 block">
-            {label}{" "}
-            {isRequired && <span className="text-red-500">*</span>}
-          </label>
-
-          <input
-            required={isRequired}
-            className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:border-[#FF7A2A] outline-none"
-            placeholder={label}
-          />
-        </div>
-      );
-    })}
-  </div>
-
-  <button className="mt-10 w-full bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] py-4 rounded-xl text-white font-bold hover:scale-105 transition">
-    Submit Partnership Inquiry
-  </button>
-
-  <p className="text-center text-[#B59A90] text-sm mt-4">
-    You agree to our Privacy Policy and consent to contact.
-  </p>
-</div>
+          <button
+            type="submit"
+            disabled={loading}
+            className={`mt-10 w-full py-5 rounded-xl text-white font-bold text-lg transition-all shadow-xl ${
+              loading
+                ? "bg-gradient-to-r from-[#4A6ED1]/50 to-[#FF7A2A]/50 cursor-not-allowed"
+                : "bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] hover:scale-105"
+            }`}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Sending Inquiry...
+              </div>
+            ) : (
+              "Submit Partnership Inquiry"
+            )}
+          </button>
+        </form>
 
       </div>
     </section>

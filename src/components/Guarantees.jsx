@@ -57,24 +57,24 @@ const Guarantees = () => {
   const guarantees = [
     {
       icon: "🛡️",
-      title: "5 Years of Craftsmanship Warranty",
-      description: "We stand by our solar installations with a Lifetime Craftsmanship Warranty, ensuring your investment is protected with guaranteed quality and durability.",
+      title: "5 year workmanship warranty ",
+      description: "Installed Right, Guaranteed for 5 Years – our craftsmanship warranty protects you against installation defects and workmanship issues.",
       gradient: "from-[#4A6ED1] to-[#4A6ED1]/80",
       border: "border-[#4A6ED1]/40",
       bg: "from-[#4A6ED1]/10 to-[#4A6ED1]/5"
     },
     {
       icon: "💰",
-      title: "Money Back Production Guarantee",
-      description: "Our Money Back Production Guarantee ensures optimal performance and your satisfaction. If our panels don't meet the expected output, we'll refund you, securing your investment.",
+      title: "30 year production guarantee",
+      description: "Guaranteed Energy for 30 Years – your panels are backed by a long-term production guarantee, not just promises.",
       gradient: "from-[#FF7A2A] to-[#FF7A2A]/80",
       border: "border-[#FF7A2A]/40",
       bg: "from-[#FF7A2A]/10 to-[#FF7A2A]/5"
     },
     {
       icon: "⚡",
-      title: "Installation Quality Guarantee",
-      description: "We employ only trained, certified electricians and enforce a rigorous quality control review process. With the industry's best full-time market team, we ensure excellence in every aspect of our work.",
+      title: "Installation Quality Guaranteed",
+      description: "We use premium hardware and precise installation methods to maximize performance and durability.",
       gradient: "from-[#4A6ED1] to-[#FF7A2A]",
       border: "border-[#4A6ED1]/30",
       bg: "from-[#4A6ED1]/10 to-[#FF7A2A]/5"

@@ -1,5 +1,7 @@
 // components/Footer.js
 import React from 'react';
+import { FaTiktok } from "react-icons/fa";
+
 import { FaPinterest } from "react-icons/fa";
 
 import { 
@@ -70,20 +72,19 @@ const Footer = () => {
             {/* Social Icons */}
 <div className="flex space-x-4 mt-8">
   {[
-    { Icon: Facebook, href: "https://facebook.com", color: "hover:text-blue-600" },
+    { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61558990336020&ref=pl_edit_xav_ig_profile_page_web_bt ", color: "hover:text-blue-600" },
     { Icon: Instagram, href: "https://www.instagram.com/starlightsolar_inc/", color: "hover:text-pink-500" },
-    { Icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-400" },
+    // { Icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-400" },
     // Twitter (X) hata diya gaya
     { Icon: () => (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 2H1L9.26037 13.0145L1.44995 22.0002H4.09942L10.4883 14.8671L16 22.0002H23L14.3917 10.3574L21.8 2H19.1506L13.1643 8.59862L8 2ZM17.538 20L5.462 4H6.974L19.05 20H17.538Z"/>
-      </svg>
-    ), href: "https://tiktok.com/@yourusername", color: "hover:text-white" }, // TikTok
+      <FaTiktok className='text-xl' />
+
+    ), href: "https://www.tiktok.com/@starlightsolar_inc", color: "hover:text-white" }, // TikTok
     { 
   Icon: () => (
    <FaPinterest className='text-xl'/>
   ), 
-  href: "https://pinterest.com/yourusername", 
+  href: "https://ca.pinterest.com/starlight_solar/", 
   color: "hover:text-red-600" 
 }
 // Pinterest
@@ -109,7 +110,7 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3">
                 {[
-                  { label: "Home", href: "/" },
+                  { label: "Home", href: "#home" },
                   { label: "About Us", href: "#about" },
                   { label: "Services", href: "#services" },
                   { label: "Blogs", href: "/Blogs" },
@@ -183,8 +184,8 @@ const Footer = () => {
                   <div className="w-10 h-10 bg-gradient-to-r from-[#FF7A2A] to-[#B59A90] rounded-full flex items-center justify-center">
                     <Mail size={18} className="text-white" />
                   </div>
-                  <a href="mailto:info@starlightsolar.ca" className="text-white/80 hover:text-[#4A6ED1] transition">
-                    info@starlightsolar.ca
+                  <a href="mailto:contact@starlightsolar.ca" className="text-white/80 hover:text-[#4A6ED1] transition">
+                    contact@starlightsolar.ca
                   </a>
                 </div>
               </div>

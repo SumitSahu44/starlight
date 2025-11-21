@@ -8,7 +8,7 @@ const SolarPanelsService = () => {
   const [currentSlide, setCurrentSlide] = useState(0);  // <-- Ye add karo
     const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const stats = [
-    { number: "25", label: "Years Warranty", suffix: "" },
+    { number: "25-30", label: "Years Warranty", suffix: "" },
     { number: "99", label: "System Reliability", suffix: "%" },
     { number: "40", label: "Average Savings", suffix: "%" },
     
@@ -65,15 +65,15 @@ const SolarPanelsService = () => {
     {
       category: "Physical",
       specs: [
-        { name: "Dimensions", value: '68" x 41"' },
-        { name: "Weight", value: "41 lbs" },
-        { name: "Frame Material", value: "Anodized Aluminum" }
+        { name: "Estimated Dimensions", value: '68" x 41"' },
+        { name: "Estimated Weight", value: "41 lbs" },
+        { name: "Estimated Frame Material", value: "Anodized Aluminum" }
       ]
     },
     {
       category: "Warranty",
       specs: [
-        { name: "Performance", value: "25 years" },
+        { name: "Performance", value: "25-30 years" },
          { name: "Workmanship", value: "5 years" }
       ]
     }
@@ -222,7 +222,7 @@ const SolarPanelsService = () => {
         {/* Slide 2 */}
         <div className="w-full h-full flex-shrink-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            src="https://img.freepik.com/free-photo/solar-panels-roof-solar-cell_335224-1324.jpg?semt=ais_hybrid&w=740&q=80"
             alt="Close-up of premium solar panels"
             className="w-full h-full object-cover"
           />
@@ -231,7 +231,7 @@ const SolarPanelsService = () => {
         {/* Slide 3 */}
         <div className="w-full h-full flex-shrink-0">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=800&fit=crop&auto=format"
+            src="https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D"
             alt="Solar farm with blue sky"
             className="w-full h-full object-cover"
           />
