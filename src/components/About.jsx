@@ -2,18 +2,22 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const sectionRef = useRef(null);
-  const imageRef = useRef(null);
+  const imageRef = useRef(null); // ab yeh carousel container ko refer karega
   const contentRef = useRef(null);
   const statsRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Image animation - slide in from left
+      // Carousel container animation (slide in from left)
       gsap.fromTo(imageRef.current,
         { x: -100, opacity: 0 },
         {
@@ -23,13 +27,12 @@ const About = () => {
           scrollTrigger: {
             trigger: imageRef.current,
             start: "top 80%",
-            end: "bottom 20%",
             toggleActions: "play none none reverse"
           }
         }
       );
 
-      // Content animation - slide in from right
+      // Content animation
       gsap.fromTo(contentRef.current,
         { x: 100, opacity: 0 },
         {
@@ -39,35 +42,12 @@ const About = () => {
           scrollTrigger: {
             trigger: contentRef.current,
             start: "top 80%",
-            end: "bottom 20%",
             toggleActions: "play none none reverse"
           }
         }
       );
 
-      // Stats counter animation
-      gsap.fromTo('.stat-number',
-        { textContent: 0, opacity: 0.5 },
-        {
-          textContent: (i, target) => {
-            const values = [25, 5000, 98];
-            return values[i];
-          },
-          opacity: 1,
-          duration: 2,
-          ease: "power2.out",
-          stagger: 0.3,
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          },
-          snap: { textContent: 1 }
-        }
-      );
-
-      // Floating elements in background
+      // Floating background animation
       gsap.to('.floating-about', {
         y: -15,
         rotation: 5,
@@ -83,15 +63,21 @@ const About = () => {
     return () => ctx.revert();
   }, []);
 
+  // Carousel Images - apne images daal do yahan
+  const carouselImages = [
+    "/images/man-worker-firld-by-solar-panels.jpg",
+    "/images/about2.jpeg",
+   
+  ];
+
   return (
     <section 
       ref={sectionRef}
       id="about"
       className="relative py-20 lg:py-32 bg-[#0B1020] overflow-hidden"
     >
-      {/* Background Elements */}
+      {/* Background Elements - Same as before */}
       <div className="absolute inset-0 z-0">
-        {/* Grid Pattern */}
         <div 
           className="absolute inset-0 opacity-5"
           style={{
@@ -103,7 +89,6 @@ const About = () => {
           }}
         />
         
-        {/* Floating Solar Icons */}
         {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={i}
@@ -122,55 +107,54 @@ const About = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+        {/* Header - Same */}
         <div className="text-center mb-16 lg:mb-24">
-          <motion.h2 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-          >
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
             <span className="text-white">About </span>
             <span className="bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] bg-clip-text text-transparent">
               Starlight
             </span>
-          </motion.h2>
-          <motion.div 
-            initial={{ opacity: 0, width: 0 }}
-            whileInView={{ opacity: 1, width: '100px' }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="h-1 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] mx-auto rounded-full"
-          />
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] mx-auto rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image Section */}
+          {/* CAROUSEL SECTION - YEH CHANGE HUA HAI */}
           <div ref={imageRef} className="relative">
             <div className="relative rounded-2xl overflow-hidden group">
-              {/* Main Image */}
-              <img 
-                src="/images/man-worker-firld-by-solar-panels.jpg"
-                alt="Starlight Solar Team"
-                className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
-              
-              {/* Gradient Overlay */}
+              <Swiper
+                modules={[Autoplay]}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                loop={true}
+                speed={800}
+                spaceBetween={0}
+                className="w-full h-[500px]"
+              >
+                {carouselImages.map((src, index) => (
+                  <SwiperSlide key={index}>
+                    <img 
+                      src={src}
+                      alt={`Starlight Solar Project ${index + 1}`}
+                      className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              {/* Gradient Overlay - Same */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1020] via-transparent to-transparent opacity-60" />
-              
-              {/* Floating Badge */}
-              {/* <div className="absolute top-6 right-6 bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-6 py-3 rounded-full font-bold shadow-2xl">
-                Since 1999
-              </div> */}
             </div>
 
-            {/* Decorative Element */}
+            {/* Decorative Circles - Same */}
             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[#FF7A2A] rounded-full opacity-20 z-0" />
             <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#4A6ED1] rounded-full opacity-20 z-0" />
           </div>
 
-          {/* Content Section */}
+          {/* Content Section - Bilkul Same */}
           <div ref={contentRef} className="space-y-8">
-            {/* Main Description */}
             <div className="space-y-6">
               <h3 className="text-3xl md:text-4xl font-bold text-white">
                 Leading the Solar Revolution
@@ -187,13 +171,12 @@ const About = () => {
               </p>
             </div>
 
-            {/* Features List */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 "Premium Solar Panels",
                 "Smart Energy Storage",
                 "Fast Monitoring Service",
-                "25-30 Year Warranty",
+                "25-Year Warranty",
                 "Expert Installation",
                 "Local Support"
               ].map((feature, index) => (
@@ -208,43 +191,16 @@ const About = () => {
               ))}
             </div>
 
-            {/* Stats */}
-            {/* <div ref={statsRef} className="grid grid-cols-3 gap-8 pt-8 border-t border-[#4A6ED1]/30">
-              {[
-                { number: 25, suffix: "", label: "Years of Warranty" },
-                { number: 100, suffix: "+", label: "Projects Completed" },
-                { number: 98, suffix: "%", label: "Customer Satisfaction" }
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-[#FF7A2A] mb-2">
-                    <span className="stat-number">0</span>
-                    <span>{stat.suffix}</span>
-                  </div>
-                  <div className="text-sm text-[#B59A90] uppercase tracking-wide">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
-            {/* CTA Button */}
             <div className="pt-6">
-              <Link to="/contact">
               <button className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-8 py-4 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
                 <span className="relative z-10 flex items-center gap-3">
                   Contact Us
-                  <svg 
-                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
                 <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
               </button>
-              </Link>
             </div>
           </div>
         </div>
@@ -252,9 +208,5 @@ const About = () => {
     </section>
   );
 };
-
-// You'll need to install framer-motion for the motion components
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 export default About;

@@ -26,35 +26,38 @@ const ContactForm = () => {
     setIsSubmitting(true);
     setStatusMessage(""); // पुराना मैसेज हटाओ
 
-    try {
-      const res = await fetch("/api/send-contact.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData)
-      });
+  try {
+  const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
 
-      const data = await res.json();
-      setIsSubmitting(false);
+  const res = await fetch(`${API_BASE}/send-contact.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
 
-      if (data.status === "success") {
-        setStatusMessage("Thank you! Your message has been sent successfully. We'll contact you soon!");
-        setStatusType("success");
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" }); // फॉर्म रीसेट
-      } else {
-        setStatusMessage(data.msg || "Oops! Something went wrong. Please try again.");
-        setStatusType("error");
-      }
-    } catch (error) {
-      setIsSubmitting(false);
-      setStatusMessage("Network error. Please check your connection and try again.");
-      setStatusType("error");
-    }
+  const data = await res.json();
+  setIsSubmitting(false);
+
+  if (data.status === "success") {
+    setStatusMessage("Thank you! Your message has been sent successfully. We'll contact you soon!");
+    setStatusType("success");
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+  } else {
+    setStatusMessage(data.msg || "Oops! Something went wrong. Please try again.");
+    setStatusType("error");
+  }
+} catch (error) {
+  setIsSubmitting(false);
+  setStatusMessage("Network error. Please check your connection and try again.");
+  setStatusType("error");
+}
+
   };
 
   return (
-    <section className="relative py-20 bg-[#0B1020] overflow-hidden">
+    <section className="relative py-20 bg-[#0B1020] overflow-hidden" id="contact">
       {/* BACKGROUND EFFECTS - बिल्कुल वैसा ही */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-10 left-10 w-64 h-64 rounded-full bg-[#4A6ED1] opacity-10 blur-3xl" />
@@ -110,7 +113,7 @@ const ContactForm = () => {
               <h4 className="text-white font-bold text-lg mb-4">Other Ways to Reach Us</h4>
               <div className="space-y-3">
                 {[
-                  { icon: "📞", method: "Phone", details: "+7809646364", action: "Call Now", href: "tel:+7809646364" },
+                  { icon: "📞", method: "Phone", details: "+1 (780)-964-6364", action: "Call Now", href: "tel:+17809646364" },
                   { icon: "📧", method: "Email", details: "contact@starlightsolar.ca", action: "Send Email", href: "mailto:contact@starlightsolar.ca" },
                 ].map((contact, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-[#0B1020] border border-[#4A6ED1]/10">

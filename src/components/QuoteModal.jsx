@@ -95,24 +95,27 @@ const QuoteModal = ({ isOpen, onClose }) => {
 
                   const formData = new FormData(e.target);
 
-                  try {
-                    const res = await fetch("/api/send-quote.php", {
-                      method: "POST",
-                      body: formData,
-                    });
+                 try {
+  const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
 
-                    const data = await res.json();
+  const res = await fetch(`${API_BASE}/send-quote.php`, {
+    method: "POST",
+    body: formData, // FormData automatically sets multipart/form-data
+  });
 
-                    if (data.status === "success") {
-                      setSuccess(true);
-                    } else {
-                      alert("Error: " + data.msg);
-                      setLoading(false);
-                    }
+  const data = await res.json();
+
+  if (data.status === "success") {
+    setSuccess(true);
+  } else {
+    alert("Error: " + data.msg);
+    setLoading(false);
+  }
                   } catch (err) {
                     alert("Server error!");
                     setLoading(false);
                   }
+
                 }}
               >
 

@@ -35,31 +35,41 @@ const [formData, setFormData] = useState({
     setStatusType("");
 
     try {
-      const res = await fetch("/api/sendRealtorForm.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  const res = await fetch("https://digitalsuccesssolutions.in/api/StarLightSolar/sendRealtorForm.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
 
-      const data = await res.json();
+  const data = await res.json();
 
-      if (data.status === "success") {
-        setStatusMessage("Thank you! Your REALTOR® partnership inquiry has been sent successfully. We'll contact you soon!");
-        setStatusType("success");
-        setFormData({
-          realtorName: "", company: "", title: "", cell: "", email: "",
-          website: "", areas: "", contactTime: ""
-        });
-      } else {
-        setStatusMessage(data.message || "Something went wrong. Please try again.");
-        setStatusType("error");
-      }
+  if (data.status === "success") {
+    setStatusMessage(
+      "Thank you! Your REALTOR® partnership inquiry has been sent successfully. We'll contact you soon!"
+    );
+    setStatusType("success");
+
+    setFormData({
+      realtorName: "",
+      company: "",
+      title: "",
+      cell: "",
+      email: "",
+      website: "",
+      areas: "",
+      contactTime: "",
+    });
+  } else {
+    setStatusMessage(data.message || "Something went wrong. Please try again.");
+    setStatusType("error");
+  }
     } catch (err) {
       setStatusMessage("Network error. Please check your connection and try again.");
       setStatusType("error");
     } finally {
       setLoading(false);
     }
+
   };
 
   useEffect(() => {
@@ -285,13 +295,13 @@ Trusted professionals who are already part of the Starlight Solar partnership.
 img: "/images/WhatsApp Image 2025-11-17 at 11.05.16 AM.jpeg",
 name: "Manpreet Singh",
 email: "Manpreet@yegestates.com",
-phone: "+1 (780) 238-8190",
+phone: "+1 (780)-238-8190",
 },
 {
 img: "/images/WhatsApp Image 2025-11-17 at 11.04.15 AM.jpeg",
 name: "Paras Bhardhwaj",
 email: "paras@muveteam.com",
-phone: "+1780-606-0786",
+phone: "+1 (780)-606-0786",
 },
 // {
 // img: "/images/sample3.jpg",

@@ -34,31 +34,39 @@ const BuilderProgram = () => {
     setStatusType("");
 
     try {
-      const res = await fetch("/api/sendBuilder.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  const res = await fetch("https://digitalsuccesssolutions.in/api/StarLightSolar/sendBuilder.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
 
-      const data = await res.json();
+  const data = await res.json();
 
-      if (data.status === "success") {
-        setStatusMessage("Thank you! Your partnership inquiry has been sent successfully. We'll contact you soon!");
-        setStatusType("success");
-        setFormData({
-          builderName: "", contactPerson: "", position: "", phone: "", email: "",
-          website: "", locations: "", homeVolume: ""
-        });
-      } else {
-        setStatusMessage(data.message || "Something went wrong. Please try again.");
-        setStatusType("error");
-      }
-    } catch (err) {
-      setStatusMessage("Network error. Please check your connection and try again.");
-      setStatusType("error");
-    } finally {
-      setLoading(false);
-    }
+  if (data.status === "success") {
+    setStatusMessage("Thank you! Your partnership inquiry has been sent successfully. We'll contact you soon!");
+    setStatusType("success");
+
+    setFormData({
+      builderName: "",
+      contactPerson: "",
+      position: "",
+      phone: "",
+      email: "",
+      website: "",
+      locations: "",
+      homeVolume: "",
+    });
+  } else {
+    setStatusMessage(data.message || "Something went wrong. Please try again.");
+    setStatusType("error");
+  }
+} catch (err) {
+  setStatusMessage("Network error. Please check your connection and try again.");
+  setStatusType("error");
+} finally {
+  setLoading(false);
+}
+
   };
 
 
@@ -208,7 +216,7 @@ const BuilderProgram = () => {
           <div className="fade-right">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1599427303058-f04cbcf4756f"
+                src="/images/r-img.png"
                 alt="Realtor Showing Solar Home"
                 className="rounded-3xl border border-[#4A6ED1]/30 shadow-xl"
               />

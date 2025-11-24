@@ -112,6 +112,7 @@ const Brands = () => {
     { name: "RenewCorp", logo: "/images/brandlogo5.jpeg" },
     { name: "SunWorks", logo: "/images/brandlogo6.jpeg" },
     { name: "EcoBuild", logo: "/images/brandlogo7.jpeg" },
+     { name: "25", logo: "/images/brandlogo8.jpeg" },
   ];
 
   const infiniteClients = [...clients, ...clients, ...clients];
@@ -244,6 +245,14 @@ const Brands = () => {
             }}
           />
         ))}
+      </div>
+
+      <div className='w-full'>
+            <img
+                      src="/images/a.jpeg" 
+                      alt="Centered image"
+                      class="w-[300px] h-auto mt-10 mx-auto block"
+                    />
       </div>
 
       <style jsx>{`

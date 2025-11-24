@@ -175,8 +175,9 @@ const Footer = () => {
                   <div className="w-10 h-10 bg-gradient-to-r from-[#4A6ED1] to-[#FF7A2A] rounded-full flex items-center justify-center">
                     <Phone size={18} className="text-white" />
                   </div>
-                  <a href="tel:+7809646364" className="text-white/80 hover:text-[#FF7A2A] transition">
-                    +(780)-964-6364
+                  <a href="tel:+17809646364" className="text-white/80 hover:text-[#FF7A2A] transition">
+                    +1 (780)-964-6364
+                    
                   </a>
                 </div>
 
