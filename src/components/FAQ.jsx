@@ -20,7 +20,7 @@ const FAQ = () => {
     },
     {
       q: "What is the warranty period on solar panels?",
-      a: "Panel performance warranty is up to 25 years. Product/equipment warranty is 10–15 years. Installation workmanship warranty is provided by our partners. All details are clearly listed in your proposal."
+      a: "Panel performance warranty is up to 30 years. Product/equipment warranty is 10–15 years. Installation workmanship warranty is provided by our partners. All details are clearly listed in your proposal."
     },
     {
       q: "Are there any rebates or incentives for going solar?",

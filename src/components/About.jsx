@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
-
+import { Link } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
@@ -176,7 +176,7 @@ const About = () => {
                 "Premium Solar Panels",
                 "Smart Energy Storage",
                 "Fast Monitoring Service",
-                "25-Year Warranty",
+                "30-Year Warranty",
                 "Expert Installation",
                 "Local Support"
               ].map((feature, index) => (
@@ -192,15 +192,18 @@ const About = () => {
             </div>
 
             <div className="pt-6">
-              <button className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-8 py-4 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
-                <span className="relative z-10 flex items-center gap-3">
+               <Link to="/contact"> <button className="group relative bg-gradient-to-r from-[#FF7A2A] to-[#4A6ED1] text-white px-8 py-4 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+             
+               <span className="relative z-10 flex items-center gap-3">
                   Contact Us
                   <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
+              
                 <div className="absolute inset-0 -left-full group-hover:left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000" />
               </button>
+               </Link> 
             </div>
           </div>
         </div>

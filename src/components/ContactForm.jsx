@@ -93,7 +93,7 @@ const ContactForm = () => {
                 {[
                   { icon: "💬", title: "Expert Consultation", description: "Get personalized advice from solar experts" },
                   { icon: "⚡", title: "Quick Installation", description: "Professional installation in 6-10 weeks" },
-                  { icon: "🛡️", title: "Comprehensive Warranty", description: "25-year performance warranty on panels" },
+                  { icon: "🛡️", title: "Comprehensive Warranty", description: "30-year performance warranty on panels" },
                   { icon: "💰", title: "$0 Down Options", description: "Start saving with no upfront costs" }
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4 p-4 rounded-2xl bg-gradient-to-br from-[#1a1f38] to-[#0B1020] border border-[#4A6ED1]/20">

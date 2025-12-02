@@ -22,7 +22,7 @@ import SolarPanelsService from './components/SolarPanelsService';
 import BatteryStorage from './components/BatteryStorage';
 import EVCharging from './components/EVCharging';
 import ContactForm from './components/ContactForm';
-
+import QuoteModal from './components/QuoteModal';
 function HomePage() {
   return (
     <>
@@ -32,6 +32,7 @@ function HomePage() {
       <Guarantees />
       <Brands />
       <Testimonials />
+      
       <FAQ />
     </>
   );
