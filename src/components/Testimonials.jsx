@@ -97,41 +97,41 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
+      name: "Carlos Bohanon",
       position: "Homeowner",
       company: "EcoHomes Resident",
       rating: 5,
-      text: "Starlight Solar transformed our energy consumption. Our electricity bills have reduced by 80% and the installation process was seamless from start to finish. Highly recommended!",
+      text: "Great company. I am very thankful for a super knowledgeable team that demonstrates fantastic customer support through its faithful service. Starlight stepped in after my installer went out of business. Starlight is friendly, knowledgeable, prompt and informative. They are a true solar partner.",
       image: "👩‍💼",
       color: "from-[#FF7A2A] to-[#FF9A52]"
     },
     {
       id: 2,
-      name: "Michael Chen",
+      name: "Amanda Hofstetter",
       position: "CEO",
       company: "TechSolutions Inc.",
       rating: 5,
-      text: "The commercial solar system installed by Starlight Solar has significantly reduced our operational costs. Their team was professional, knowledgeable, and delivered ahead of schedule.",
+      text: "I recently had the pleasure of working with starlight solar for my solar panel repair project and I can't say enough about the incredible experience from start to finish their team went above and beyond to make sure the process was smooth transparent and stress free.",
       image: "👨‍💼",
       color: "from-[#4A6ED1] to-[#6B8CFF]"
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
+      name: "Chris H",
       position: "Property Manager",
       company: "Green Apartments",
       rating: 5,
-      text: "Working with Starlight Solar was an exceptional experience. They handled our multi-unit installation with precision and provided excellent ongoing support. Our tenants love the green initiative!",
+      text: "We bought a house with an existing Sunpower solar system. Since Sunpower has gone bankrupt we were left with a system that we had no visibility into or warranty support. We now know exactly what is going on with the system and a path forward.",
       image: "👩‍🔧",
       color: "from-[#B59A90] to-[#d4b8a8]"
     },
     {
       id: 4,
-      name: "David Thompson",
+      name: "Ben Lash",
       position: "Factory Owner",
       company: "Precision Manufacturing",
       rating: 5,
-      text: "The ROI on our solar investment exceeded expectations. Starlight Solar's expertise in commercial systems is unmatched. We're already planning phase two of our solar transition.",
+      text: "Starlight had a great phone support experience helping me prepare for a installer visit. The installers were on time and professionally handled everything. Their followup on getting the system working made sure I had no concerns.",
       image: "👨‍🏭",
       color: "from-[#FF7A2A] to-[#4A6ED1]"
     }
