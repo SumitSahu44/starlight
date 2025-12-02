@@ -8,18 +8,32 @@ const QuoteModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
+      // Body scroll lock logic
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
-      window.scrollTo(0, 0);
+      
+      // REMOVED: window.scrollTo(0, 0); -> Ye iOS pe glitch karta hai keyboard aane par
     }
 
     return () => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      setLoading(false);
-      setSuccess(false);
+      // State reset is technically risky here if modal re-opens quickly, 
+      // but fine for now. Better to reset on 'open'.
+      if (!isOpen) { 
+          setLoading(false);
+          setSuccess(false);
+      }
     };
+  }, [isOpen]);
+
+  // Reset state when modal opens
+  useEffect(() => {
+    if(isOpen) {
+        setLoading(false);
+        setSuccess(false);
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -31,23 +45,35 @@ const QuoteModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50" onClick={onClose} />
+    <div className="relative z-50">
+      {/* Unified Backdrop & Wrapper Strategy for iOS Stability 
+        Using h-[100dvh] ensures it fits perfectly on mobile browsers (Safari/Chrome)
+      */}
+      
+      {/* Backdrop Layer */}
+      <div 
+        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity" 
+        aria-hidden="true"
+      />
 
-      {/* Modal */}
-      <div className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-4">
+      {/* Scrollable Container */}
+      <div 
+        className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden h-[100dvh]"
+        onClick={onClose} // Clicking the empty space closes the modal
+      >
+        <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+          
+          {/* Modal Content Card */}
           <div
-            className="bg-[#11172B] border border-[#4A6ED1]/30 rounded-3xl shadow-2xl w-full max-w-lg my-8"
-            onClick={(e) => e.stopPropagation()}
+            className="relative transform overflow-hidden bg-[#11172B] border border-[#4A6ED1]/30 rounded-3xl shadow-2xl w-full max-w-lg my-8 text-left transition-all"
+            onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
           >
 
             {/* HEADER */}
             <div className="relative p-6 pb-3 border-b border-[#4A6ED1]/20">
               <button
                 onClick={onClose}
-                className="absolute top-5 right-5 text-[#B59A90] hover:text-white transition z-10 bg-[#0B1020]/50 rounded-full p-1"
+                className="absolute top-5 right-5 text-[#B59A90] hover:text-white transition z-10 bg-[#0B1020]/50 rounded-full p-1 cursor-pointer"
               >
                 <X size={26} />
               </button>
@@ -95,29 +121,32 @@ const QuoteModal = ({ isOpen, onClose }) => {
 
                   const formData = new FormData(e.target);
 
-                 try {
-  const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
+                  try {
+                    const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
 
-  const res = await fetch(`${API_BASE}/send-quote.php`, {
-    method: "POST",
-    body: formData, // FormData automatically sets multipart/form-data
-  });
+                    const res = await fetch(`${API_BASE}/send-quote.php`, {
+                      method: "POST",
+                      body: formData,
+                    });
 
-  const data = await res.json();
+                    const data = await res.json();
 
-  if (data.status === "success") {
-    setSuccess(true);
-  } else {
-    alert("Error: " + data.msg);
-    setLoading(false);
-  }
+                    if (data.status === "success") {
+                      setSuccess(true);
+                    } else {
+                      alert("Error: " + data.msg);
+                      setLoading(false);
+                    }
                   } catch (err) {
-                    alert("Server error!");
+                    console.error(err);
+                    alert("Server error! Please try again.");
                     setLoading(false);
                   }
-
                 }}
               >
+                {/* iOS FIX: Added 'text-base' (16px) to all inputs.
+                   This prevents iOS Safari from auto-zooming when focusing an input.
+                */}
 
                 {/* Full Name */}
                 <div>
@@ -129,7 +158,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     required
                     name="fullname"
                     placeholder="John Doe"
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                   />
                 </div>
 
@@ -143,7 +172,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     name="email"
                     required
                     placeholder="john@example.com"
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                   />
                 </div>
 
@@ -157,7 +186,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     name="phone"
                     required
                     placeholder="+1 (555) 000-1234"
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                   />
                 </div>
 
@@ -171,7 +200,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     required
                     name="address"
                     placeholder="123 Main Street"
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                   />
                 </div>
 
@@ -184,7 +213,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                       required
                       name="city"
                       placeholder="Toronto"
-                      className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                      className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                     />
                   </div>
 
@@ -195,7 +224,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                       required
                       name="state"
                       placeholder="Ontario"
-                      className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                      className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -208,7 +237,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                     required
                     name="zip"
                     placeholder="M5V 2T6"
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all"
                   />
                 </div>
 
@@ -218,7 +247,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   <select
                     name="service"
                     required
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all appearance-none"
                   >
                     <option value="">Choose service</option>
                     <option value="Solar Panels">Solar Panels</option>
@@ -236,7 +265,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   <select
                     name="source"
                     required
-                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white"
+                    className="w-full px-4 py-3.5 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:ring-2 focus:ring-[#4A6ED1] outline-none transition-all appearance-none"
                   >
                     <option value="">Select an option</option>
                     <option value="Google Search">Google Search</option>
@@ -264,7 +293,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
