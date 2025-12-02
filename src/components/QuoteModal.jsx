@@ -12,15 +12,11 @@ const QuoteModal = ({ isOpen, onClose }) => {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
-      
-      // REMOVED: window.scrollTo(0, 0); -> Ye iOS pe glitch karta hai keyboard aane par
     }
 
     return () => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      // State reset is technically risky here if modal re-opens quickly, 
-      // but fine for now. Better to reset on 'open'.
       if (!isOpen) { 
           setLoading(false);
           setSuccess(false);
@@ -45,21 +41,22 @@ const QuoteModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="relative z-50">
-      {/* Unified Backdrop & Wrapper Strategy for iOS Stability 
-        Using h-[100dvh] ensures it fits perfectly on mobile browsers (Safari/Chrome)
+    <>
+      {/* FIX: Z-Index increased to 9998/9999 to ensure it sits on top of everything.
+         Removed the outer 'relative' div so 'fixed' works relative to the viewport/screen.
       */}
-      
-      {/* Backdrop Layer */}
+
+      {/* Backdrop Layer (Black Transparent Background) */}
       <div 
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity" 
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] transition-opacity" 
+        onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Scrollable Container */}
       <div 
-        className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden h-[100dvh]"
-        onClick={onClose} // Clicking the empty space closes the modal
+        className="fixed inset-0 z-[9999] overflow-y-auto overflow-x-hidden h-[100dvh]"
+        onClick={onClose} // Clicking outside closes the modal
       >
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
           
@@ -144,10 +141,6 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   }
                 }}
               >
-                {/* iOS FIX: Added 'text-base' (16px) to all inputs.
-                   This prevents iOS Safari from auto-zooming when focusing an input.
-                */}
-
                 {/* Full Name */}
                 <div>
                   <label className="block text-white font-medium mb-2">
@@ -293,7 +286,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

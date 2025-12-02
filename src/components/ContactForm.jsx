@@ -6,13 +6,14 @@ const ContactForm = () => {
     name: "",
     email: "",
     phone: "",
+    address: "", // New Address Field
     subject: "",
     message: ""
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMessage, setStatusMessage] = useState(""); // ← नया ऐड किया
-  const [statusType, setStatusType] = useState(""); // success या error
+  const [statusMessage, setStatusMessage] = useState("");
+  const [statusType, setStatusType] = useState(""); // success or error
 
   const handleChange = (e) => {
     setFormData({
@@ -24,41 +25,41 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatusMessage(""); // पुराना मैसेज हटाओ
+    setStatusMessage("");
 
-  try {
-  const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
+    try {
+      const API_BASE = "https://digitalsuccesssolutions.in/api/StarLightSolar";
 
-  const res = await fetch(`${API_BASE}/send-contact.php`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+      const res = await fetch(`${API_BASE}/send-contact.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  const data = await res.json();
-  setIsSubmitting(false);
+      const data = await res.json();
+      setIsSubmitting(false);
 
-  if (data.status === "success") {
-    setStatusMessage("Thank you! Your message has been sent successfully. We'll contact you soon!");
-    setStatusType("success");
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-  } else {
-    setStatusMessage(data.msg || "Oops! Something went wrong. Please try again.");
-    setStatusType("error");
-  }
-} catch (error) {
-  setIsSubmitting(false);
-  setStatusMessage("Network error. Please check your connection and try again.");
-  setStatusType("error");
-}
-
+      if (data.status === "success") {
+        setStatusMessage("Thank you! Your message has been sent successfully. We'll contact you soon!");
+        setStatusType("success");
+        // Reset form including address
+        setFormData({ name: "", email: "", phone: "", address: "", subject: "", message: "" });
+      } else {
+        setStatusMessage(data.msg || "Oops! Something went wrong. Please try again.");
+        setStatusType("error");
+      }
+    } catch (error) {
+      setIsSubmitting(false);
+      setStatusMessage("Network error. Please check your connection and try again.");
+      setStatusType("error");
+    }
   };
 
   return (
     <section className="relative py-20 bg-[#0B1020] overflow-hidden" id="contact">
-      {/* BACKGROUND EFFECTS - बिल्कुल वैसा ही */}
+      {/* BACKGROUND EFFECTS */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-10 left-10 w-64 h-64 rounded-full bg-[#4A6ED1] opacity-10 blur-3xl" />
         <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-[#FF7A2A] opacity-10 blur-3xl" />
@@ -84,9 +85,8 @@ const ContactForm = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* LEFT SIDE - बिल्कुल वैसा ही */}
+          {/* LEFT SIDE */}
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
-            {/* Why Choose + Contact Methods - तुम्हारा पुराना कोड वैसा ही */}
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">Why Choose Starlight Solar?</h3>
               <div className="space-y-4">
@@ -140,7 +140,7 @@ const ContactForm = () => {
             <h3 className="text-2xl font-bold text-white mb-2">Send us a Message</h3>
             <p className="text-[#B59A90] mb-8">Fill out the form below and we'll get back to you ASAP.</p>
 
-            {/* ← यहाँ सुंदर Success/Error Message आएगा */}
+            {/* Success/Error Message */}
             {statusMessage && (
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -156,37 +156,91 @@ const ContactForm = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* सब fields बिल्कुल वैसे ही */}
+              
+              {/* Row 1: Name & Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="text-white/80 text-sm font-medium mb-2 block">Full Name *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" placeholder="Enter your full name" />
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    required 
+                    className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" 
+                    placeholder="Enter your full name" 
+                  />
                 </div>
                 <div>
                   <label className="text-white/80 text-sm font-medium mb-2 block">Email Address *</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" placeholder="Enter your email" />
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    required 
+                    className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" 
+                    placeholder="Enter your email" 
+                  />
                 </div>
               </div>
 
+              {/* Row 2: Phone & Subject */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="text-white/80 text-sm font-medium mb-2 block">Phone Number</label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" placeholder="Enter your phone number" />
+                  <input 
+                    type="tel" 
+                    name="phone" 
+                    value={formData.phone} 
+                    onChange={handleChange} 
+                    className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" 
+                    placeholder="Enter your phone number" 
+                  />
                 </div>
                 <div>
                   <label className="text-white/80 text-sm font-medium mb-2 block">Subject *</label>
-                  <select name="subject" value={formData.subject} onChange={handleChange} required className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300">
+                  <select 
+                    name="subject" 
+                    value={formData.subject} 
+                    onChange={handleChange} 
+                    required 
+                    className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base appearance-none focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300"
+                  >
                     <option value="">Select a subject</option>
                     <option value="Solar Panels">Solar Panels</option>
                     <option value="Battery Storage">Battery Storage</option>
                     <option value="EV Charging">EV Charging</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
 
+              {/* Row 3: Address (New Field) */}
+              <div>
+                <label className="text-white/80 text-sm font-medium mb-2 block">Property Address</label>
+                <input 
+                  type="text" 
+                  name="address" 
+                  value={formData.address} 
+                  onChange={handleChange} 
+                  className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50" 
+                  placeholder="123 Solar Street, City, State" 
+                />
+              </div>
+
+              {/* Row 4: Message */}
               <div>
                 <label className="text-white/80 text-sm font-medium mb-2 block">Message *</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} required rows="5" className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50 resize-none" placeholder="Tell us about your solar needs..." />
+                <textarea 
+                  name="message" 
+                  value={formData.message} 
+                  onChange={handleChange} 
+                  required 
+                  rows="5" 
+                  className="w-full p-4 bg-[#0B1020] border border-[#4A6ED1]/30 rounded-xl text-white text-base focus:outline-none focus:border-[#FF7A2A] transition-colors duration-300 placeholder-[#B59A90]/50 resize-none" 
+                  placeholder="Tell us about your solar needs..." 
+                />
               </div>
 
               <button
